@@ -61,18 +61,20 @@ filetype plugin indent on    " required
 "
 
 
-"""""""""""""""""""""""""""""""""""""""""""
-
-
+"""""""""""""""""""""""""""""""""""""""""""""
+" My stuf below this line
+"""""""""""""""""""""""""""""""""""""""""""""
 " line numbers
 set number
 set relativenumber
 " syntax highlighting
 syntax on
-" colors
+" syntax colors
 "colorschem monokai
 "colorschem vibrantink
 colorscheme Tomorrow-Night-Bright
+" search highlight
+set hls
 
 
 
@@ -95,7 +97,7 @@ endif
 " TABs
                                             
 """""""""""""""""""""""""""""""""""""""""""""
-"" use 4 spaces for tabs
+" use 4 spaces for tabs
 set tabstop=4 softtabstop=4 shiftwidth=4
 " display indentation guides.. looks like  |---|---
 "set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
@@ -116,12 +118,3 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
                                         
-"""""""""""""""""""""""""""""""""""""""""""""
-" Eclim - 
-"""""""""""""""""""""""""""""""""""""""""""""
-" This uses vim's omni code
-"   use Ctrl-X Ctrl-O
-"let g:EclimCompletionMethod = 'omnifunc'
-"
-"
-
