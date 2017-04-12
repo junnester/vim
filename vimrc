@@ -43,6 +43,8 @@ Plugin 'dansomething/vim-eclim'
 Plugin 'Raimondi/delimitMate'
 " tab completion SuperTab
 Plugin 'ervandew/supertab'
+" undo tree
+Plugin 'mbbill/undotree'
 
 
 
@@ -126,3 +128,15 @@ let g:indent_guides_guide_size = 1
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 "
 """""""""""""""""""""""""""""""""""""""""""""
+" Undo tree
+"""""""""""""""""""""""""""""""""""""""""""""
+":UndotreeToggle     #hit: <F5>
+nnoremap <F5> :UndotreeToggle<cr>
+"   Persistent undo
+"     It is highly recommend to enable the persistent undo. If you don't like your
+"     working directory be messed up with the undo file everywhere, you may add
+"     the following line to your vimrc in order to make them stored together.
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
