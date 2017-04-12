@@ -41,6 +41,8 @@ Plugin 'dansomething/vim-eclim'
 "
 " for Bracket and quote completion
 Plugin 'Raimondi/delimitMate'
+" tab completion SuperTab
+Plugin 'ervandew/supertab'
 
 
 
@@ -78,11 +80,7 @@ syntax on
 colorscheme Tomorrow-Night-Bright
 " search highlight
 set hls
-
-
-
-
-
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " For utf-8 encoding
 """""""""""""""""""""""""""""""""""""""""""""
@@ -111,6 +109,7 @@ autocmd! bufreadpost * set noexpandtab | retab! 4
 autocmd! bufwritepre * set expandtab | retab! 4
 " convert spaces to tabs after writing file (to show guides again)
 autocmd! bufwritepost * set noexpandtab | retab! 4
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " nathanaelkane/vim-indent-guides
 """""""""""""""""""""""""""""""""""""""""""""
@@ -121,3 +120,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
                                         
+"""""""""""""""""""""""""""""""""""""""""""""
+" SuperTab - tab completion - <ctrl+p>
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
