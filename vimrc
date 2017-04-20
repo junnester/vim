@@ -1,6 +1,7 @@
 set nocompatible                " be iMproved, required
 "filetype off                   " required
 filetype plugin indent on       " needed for eclim
+syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " VUNDLE
@@ -33,6 +34,9 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'sickill/vim-monokai'
 Plugin 'vim-scripts/vibrantink'
 Plugin 'd11wtq/tomorrow-theme-vim'
+"
+" Syntax hilighting for salt
+Plugin 'saltstack/salt-vim'
 "
 " for Java: autocopmlete code
 "    https://github.com/artur-shaik/vim-javacomplete2
@@ -74,8 +78,6 @@ filetype plugin indent on    " required
 " line numbers
 set number
 set relativenumber
-" syntax highlighting
-syntax on
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
