@@ -1,6 +1,7 @@
 set nocompatible                " be iMproved, required
 "filetype off                   " required
 filetype plugin indent on       " needed for eclim
+syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " VUNDLE
@@ -35,7 +36,16 @@ Plugin 'nathanaelkane/vim-indent-guides'
 "    https://github.com/artur-shaik/vim-javacomplete2
 "Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'dansomething/vim-eclim'
-"==== end JAVA section ==========================
+"= end JAVA section =
+"
+"==== Syntax stuff ==============================
+" Theme - need high color - $ tmux -2
+Plugin 'sickill/vim-monokai'
+Plugin 'vim-scripts/vibrantink'
+Plugin 'd11wtq/tomorrow-theme-vim'
+"
+" Syntax hilighting for salt
+Plugin 'saltstack/salt-vim'
 "
 " for Bracket and quote completion
 Plugin 'Raimondi/delimitMate'
@@ -46,15 +56,13 @@ Plugin 'ervandew/supertab'
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
 "
-" Themes - need high color - $ tmux -2
-Plugin 'sickill/vim-monokai'
-Plugin 'vim-scripts/vibrantink'
-Plugin 'd11wtq/tomorrow-theme-vim'
+" undo tree
+Plugin 'mbbill/undotree'
 "
-
-
-
-
+"
+"
+"
+"
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -80,19 +88,13 @@ filetype plugin indent on    " required
 " line numbers
 set number
 set relativenumber
-" syntax highlighting
-syntax on
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
 colorscheme Tomorrow-Night-Bright
 " search highlight
 set hls
-
-
-
-
-
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " For utf-8 encoding
 """""""""""""""""""""""""""""""""""""""""""""
@@ -121,6 +123,7 @@ autocmd! bufreadpost * set noexpandtab | retab! 4
 autocmd! bufwritepre * set expandtab | retab! 4
 " convert spaces to tabs after writing file (to show guides again)
 autocmd! bufwritepost * set noexpandtab | retab! 4
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " nathanaelkane/vim-indent-guides
 """""""""""""""""""""""""""""""""""""""""""""
@@ -130,9 +133,22 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " supertab - tab completion
 """""""""""""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = 'context'
 "
 """""""""""""""""""""""""""""""""""""""""""""
+" Undo tree
+"""""""""""""""""""""""""""""""""""""""""""""
+":UndotreeToggle     #hit: <F5>
+nnoremap <F5> :UndotreeToggle<cr>
+"   Persistent undo
+"     It is highly recommend to enable the persistent undo. If you don't like your
+"     working directory be messed up with the undo file everywhere, you may add
+"     the following line to your vimrc in order to make them stored together.
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
