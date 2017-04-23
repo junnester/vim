@@ -12,35 +12,45 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+"
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
-
-" plugin on GitHub repo
+"
+" GitHub repo
 " fugitive is a Git plugin for git pull / push etc
 "   see https://github.com/tpope/vim-fugitive
 Plugin 'tpope/vim-fugitive'
 "
+"==== JAVA section ==============================
 " for Java: ultisnips are java snippets 
 "    see "https://github.com/SirVer/ultisnips
+"    uses <tab>
 Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
 "Plugin 'Yggdroot/indentLine.git'
 Plugin 'nathanaelkane/vim-indent-guides'
 "
-" Theme - need high color - $ tmux -2
-Plugin 'sickill/vim-monokai'
-Plugin 'vim-scripts/vibrantink'
-Plugin 'd11wtq/tomorrow-theme-vim'
-"
 " for Java: autocopmlete code
 "    https://github.com/artur-shaik/vim-javacomplete2
 "Plugin 'artur-shaik/vim-javacomplete2'
 Plugin 'dansomething/vim-eclim'
+"==== end JAVA section ==========================
 "
 " for Bracket and quote completion
 Plugin 'Raimondi/delimitMate'
+"
+" tab complettion
+Plugin 'ervandew/supertab'
+"
+" syntastic - syntax checking for lots of stuff not java
+Plugin 'vim-syntastic/syntastic'
+"
+" Themes - need high color - $ tmux -2
+Plugin 'sickill/vim-monokai'
+Plugin 'vim-scripts/vibrantink'
+Plugin 'd11wtq/tomorrow-theme-vim'
+"
 
 
 
@@ -120,4 +130,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
-                                        
+"""""""""""""""""""""""""""""""""""""""""""""
+" supertab - tab completion
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:SuperTabDefaultCompletionType = 'context'
+"
+"""""""""""""""""""""""""""""""""""""""""""""
