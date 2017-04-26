@@ -125,7 +125,9 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
                                         
 """""""""""""""""""""""""""""""""""""""""""""
-" SuperTab - tab completion - <ctrl+p>
+" SuperTab - tab completion  
+"   context    ctrl+p
+"   cycle      ctrl+n
 """""""""""""""""""""""""""""""""""""""""""""
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 "
