@@ -38,6 +38,9 @@ Plugin 'd11wtq/tomorrow-theme-vim'
 " Syntax hilighting for salt
 Plugin 'saltstack/salt-vim'
 "
+" Syntax hilighting for Cisco and network - enable with :set ft=cisco
+Plugin 'CyCoreSystems/vim-cisco-ios'
+"
 " for Java: autocopmlete code
 "    https://github.com/artur-shaik/vim-javacomplete2
 "Plugin 'artur-shaik/vim-javacomplete2'
@@ -81,7 +84,9 @@ set relativenumber
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
-colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night-Bright  "black bg
+"colorscheme Tomorrow-Night-Eighties "dark gray bg
+"colorscheme Tomorrow "white bg
 " search highlight
 set hls
 "
