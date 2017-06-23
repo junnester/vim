@@ -47,6 +47,9 @@ Plugin 'd11wtq/tomorrow-theme-vim'
 " Syntax hilighting for salt
 Plugin 'saltstack/salt-vim'
 "
+" Syntax hilighting for Cisco and network - enable with :set ft=cisco
+Plugin 'CyCoreSystems/vim-cisco-ios'
+"
 " for Bracket and quote completion
 Plugin 'Raimondi/delimitMate'
 "
@@ -97,7 +100,9 @@ set relativenumber
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
-colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night-Bright  "black bg
+"colorscheme Tomorrow-Night-Eighties "dark gray bg
+"colorscheme Tomorrow "white bg
 " search highlight
 set hls
 "
@@ -141,7 +146,9 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 1
 "
 """""""""""""""""""""""""""""""""""""""""""""
-" supertab - tab completion
+" SuperTab - tab completion - <ctrl+p>
+"   context    ctrl+p
+"   cycle      ctrl+n
 """""""""""""""""""""""""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = 'context'
 "
