@@ -56,6 +56,12 @@ Plugin 'ervandew/supertab'
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
 "
+"================================================
+"
+" TagBar shows project structures like methods... 
+Plugin 'majutsushi/tagbar'
+" Vim Tags needed for TagBar -- this needs ctags installed
+Plugin 'szw/vim-tags'
 " undo tree
 Plugin 'mbbill/undotree'
 "
@@ -152,3 +158,8 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+"""""""""""""""""""""""""""""""""""""""""""""
+" TagBar
+"""""""""""""""""""""""""""""""""""""""""""""
+nmap <F8> :TagbarToggle<CR>
+"""""""""""""""""""""""""""""""""""""""""""""
