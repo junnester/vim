@@ -1,6 +1,6 @@
 set nocompatible                " be iMproved, required
 "filetype off                   " required
-filetype plugin indent on       " needed for eclim
+"filetype plugin indent on      " needed for eclim
 syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -26,7 +26,7 @@ Plugin 'tpope/vim-fugitive'
 " for Java: ultisnips are java snippets 
 "    see "https://github.com/SirVer/ultisnips
 "    uses <tab>
-Plugin 'SirVer/ultisnips.git'
+"Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
 "Plugin 'Yggdroot/indentLine.git'
@@ -35,7 +35,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 " for Java: autocopmlete code
 "    https://github.com/artur-shaik/vim-javacomplete2
 "Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'dansomething/vim-eclim'
+"Plugin 'dansomething/vim-eclim'
 "= end JAVA section =
 "
 "==== Syntax stuff ==============================
@@ -96,7 +96,7 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""
 " line numbers
 set number
-set relativenumber
+"set relativenumber
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
