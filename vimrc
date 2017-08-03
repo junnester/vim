@@ -1,6 +1,6 @@
 set nocompatible                " be iMproved, required
-"filetype off                   " required
-"filetype plugin indent on      " needed for eclim
+filetype off                    " required
+filetype plugin indent on       " needed for pyflakes
 syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -59,6 +59,11 @@ Plugin 'ervandew/supertab'
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
 "
+" Python auto complete 
+Plugin 'davidhalter/jedi-vim'
+"
+" Python Error highlighting
+Plugin 'kevinw/pyflakes-vim'
 "================================================
 "
 " TagBar shows project structures like methods... 
