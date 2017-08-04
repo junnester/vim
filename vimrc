@@ -64,7 +64,7 @@ Plugin 'davidhalter/jedi-vim'
 "
 " Python Error highlighting
 Plugin 'kevinw/pyflakes-vim'
-"================================================
+"==== Structure stuff ===========================
 "
 " TagBar shows project structures like methods... 
 Plugin 'majutsushi/tagbar'
@@ -72,10 +72,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'szw/vim-tags'
 " undo tree
 Plugin 'mbbill/undotree'
-"
-"
-"
-"
+" any fold - folds code by indent
+Plugin 'pseewald/vim-anyfold'
+" cycle folding -- like togle instead of vim default 
+Plugin 'arecarn/vim-fold-cycle'
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -126,6 +126,8 @@ endif
 
 """""""""""""""""""""""""""""""""""""""""""""
 " TABs
+" TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
+" elimiate tab conversion for non python files
                                             
 """""""""""""""""""""""""""""""""""""""""""""
 " use 4 spaces for tabs
@@ -174,4 +176,16 @@ endif
 " TagBar
 """""""""""""""""""""""""""""""""""""""""""""
 nmap <F8> :TagbarToggle<CR>
+"""""""""""""""""""""""""""""""""""""""""""""
+" anyfold active for all filetypes
+"   see :h anyfold
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:anyfold_activate=1 
+"""""""""""""""""""""""""""""""""""""""""""""
+" cycle folding
+"""""""""""""""""""""""""""""""""""""""""""""
+set modifiable
+let g:fold_cycle_default_mapping = 0 "disable default mappings
+nmap <Tab><Tab> <Plug>(fold-cycle-open)
+nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 """""""""""""""""""""""""""""""""""""""""""""
