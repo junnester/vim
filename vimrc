@@ -77,6 +77,12 @@ Plugin 'pseewald/vim-anyfold'
 " cycle folding -- like togle instead of vim default 
 Plugin 'arecarn/vim-fold-cycle'
 "
+"==== Utilities and Tools =======================
+" Repeat vim - make . better
+Plugin 'tpope/vim-repeat'
+" Make using the clipboard and pastbuffers easier
+Plugin 'svermeulen/vim-easyclip'
+"
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -110,6 +116,8 @@ colorscheme Tomorrow-Night-Bright  "black bg
 "colorscheme Tomorrow "white bg
 " search highlight
 set hls
+" do not wrap lines
+set wrap!
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " For utf-8 encoding
@@ -189,3 +197,12 @@ let g:fold_cycle_default_mapping = 0 "disable default mappings
 nmap <Tab><Tab> <Plug>(fold-cycle-open)
 nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 """""""""""""""""""""""""""""""""""""""""""""
+" vim-easyclip - easy clipboad usage (needs repate.vim)
+"""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: m is now cut (text)
+" 
+" gm to add mark instead m
+" nnoremap gm m
+"""""""""""""""""""""""""""""""""""""""""""""
+" repeat.vim
+"
