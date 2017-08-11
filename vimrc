@@ -139,12 +139,16 @@ endif
                                             
 """""""""""""""""""""""""""""""""""""""""""""
 " use 4 spaces for tabs
+"     tabstop : tabs == number of spaces
+"     softtabstop: tabs == number of spaces while editing
+"     shiftwidth: number of space to move when hitting tab-key
 set tabstop=4 softtabstop=4 shiftwidth=4
 " display indentation guides.. looks like  |---|---
 "set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:×
 " convert spaces to tabs when reading file
-autocmd! bufreadpost * set noexpandtab | retab! 4
+"     _i think_ this causes errors when displaying readonly files
+"autocmd! bufreadpost * set noexpandtab | retab! 4
 " convert tabs to spaces before writing file
 autocmd! bufwritepre * set expandtab | retab! 4
 " convert spaces to tabs after writing file (to show guides again)
@@ -165,6 +169,7 @@ let g:indent_guides_guide_size = 1
 "   context    ctrl+p
 "   cycle      ctrl+n
 """""""""""""""""""""""""""""""""""""""""""""
+" context wors great!
 let g:SuperTabDefaultCompletionType = 'context'
 "
 """""""""""""""""""""""""""""""""""""""""""""
