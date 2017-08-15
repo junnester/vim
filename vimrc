@@ -204,10 +204,12 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 """""""""""""""""""""""""""""""""""""""""""""
 " vim-easyclip - easy clipboad usage (needs repate.vim)
 """""""""""""""""""""""""""""""""""""""""""""
-" NOTE: m is now cut (text)
+" NOTE: m is now cut (text) and dd will 'naturaly' delete 
+"     usage: <motion> then mm - to cut (or move)
+"            p - to put
 " 
 " gm to add mark instead m
-" nnoremap gm m
+nnoremap gm m
 """""""""""""""""""""""""""""""""""""""""""""
 " repeat.vim
 "
