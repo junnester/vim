@@ -64,24 +64,41 @@ Plugin 'davidhalter/jedi-vim'
 "
 " Python Error highlighting
 Plugin 'kevinw/pyflakes-vim'
+" 
+" Python rope a refactoring library
+Plugin 'python-rope/rope'
+" Python ropevim for refactoring - needs rope
+Plugin 'python-rope/ropevim'
+"
 "==== Structure stuff ===========================
 "
 " TagBar shows project structures like methods... 
 Plugin 'majutsushi/tagbar'
+"
 " Vim Tags needed for TagBar -- this needs ctags installed
 Plugin 'szw/vim-tags'
+"
 " undo tree
 Plugin 'mbbill/undotree'
+"
 " any fold - folds code by indent
 Plugin 'pseewald/vim-anyfold'
+"
 " cycle folding -- like togle instead of vim default 
 Plugin 'arecarn/vim-fold-cycle'
 "
+"
 "==== Utilities and Tools =======================
+"
 " Repeat vim - make . better
 Plugin 'tpope/vim-repeat'
+"
 " Make using the clipboard and pastbuffers easier
 Plugin 'svermeulen/vim-easyclip'
+"
+" CSV Editing 
+Plugin 'chrisbra/csv.vim'
+"
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -131,7 +148,7 @@ if has("multi_byte")
   "setglobal bomb
   set fileencodings=ucs-bom,utf-8,latin1
 endif
-
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " TABs
 " TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
@@ -213,10 +230,49 @@ nnoremap gm m
 """""""""""""""""""""""""""""""""""""""""""""
 " repeat.vim
 "
+"""""""""""""""""""""""""""""""""""""""""""""
+" CSV Editing 'chrisbra/csv.vim'
+"""""""""""""""""""""""""""""""""""""""""""""
+" make csv files readonly
+"autocmd BufWinEnter *.csv set buftype=nowrite | :%s/, /,/g
+" filetype highlighting need this for  auto locoading
+filetype plugin on
+" no folding
+let g:csv_disable_fdt = 1
+" comments line
+let g:csv_comment = '#'
+" no commas in the field.  not even escaped comma
+let g:csv_strict_columns = 1
+" highlight COLUMN
+"let g:csv_highlight_column = 'y'
+" set column width increments
+let b:csv_fixed_width="1,5,9,13,17,21"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
+" ropevim for refactoring
+"    https://github.com/python-rope/ropevim
+"    :help ropevim
+"    setup needed: 
+"        python setup.py install
+"""""""""""""""""""""""""""""""""""""""""""""
+" Docs
+""find occurrences command (C-c f by default)
+""
+" use vim's complete function in insert mode 
+let ropevim_vim_completion=1
+"
+" AutoImport
+"    add the name of modules you want to autoimport
+"let g:ropevim_autoimport_modules = ['os', 'shutil'] <usedToBe doubleQuote
 "
 "
+"""""""""""""""""""""""""""""""""""""""""""""
+" Exuberant Ctags - VimTags
+"     to index run to following command in cwd:
 "
-"
+"     ctags -R -f ./.git/tags .
+"   
+"     this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
 """"NOTES on BASICS""""""""""""""""""""""""""
