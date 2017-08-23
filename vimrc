@@ -1,6 +1,8 @@
 set nocompatible                " be iMproved, required
-filetype off                    " required
-filetype plugin indent on       " needed for pyflakes
+filetype off                    " required vundle
+"filetype                       " required csv vim , this will ignore 'plugin indent on'
+filetype plugin on              " needed for csv.vim
+filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -99,6 +101,11 @@ Plugin 'svermeulen/vim-easyclip'
 " CSV Editing 
 Plugin 'chrisbra/csv.vim'
 "
+" Airline status bar
+Plugin 'vim-airline/vim-airline'
+" Airline themes
+Plugin 'vim-airline/vim-airline-themes'
+
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -246,7 +253,16 @@ let g:csv_strict_columns = 1
 " highlight COLUMN
 "let g:csv_highlight_column = 'y'
 " set column width increments
-let b:csv_fixed_width="1,5,9,13,17,21"
+"let b:csv_fixed_width="1,5,9,13,17,21"
+"
+" visuall arrange all columns
+"let g:csv_autocmd_arrange = 1
+" visually arrage for files smaller than 1 MB
+"let g:csv_autocmd_arrange_size = 1024*1024
+"
+"
+"
+"
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " ropevim for refactoring
@@ -275,6 +291,11 @@ let ropevim_vim_completion=1
 "     this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
+" Airline status bar themes
+"     https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_solarized_bg='dark'
+"
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
