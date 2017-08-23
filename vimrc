@@ -1,6 +1,8 @@
 set nocompatible                " be iMproved, required
-filetype off                    " required
-filetype plugin indent on       " needed for pyflakes
+filetype off                    " required vundle
+"filetype                       " required csv vim , this will ignore 'plugin indent on'
+filetype plugin on              " needed for csv.vim
+filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -251,7 +253,16 @@ let g:csv_strict_columns = 1
 " highlight COLUMN
 "let g:csv_highlight_column = 'y'
 " set column width increments
-let b:csv_fixed_width="1,5,9,13,17,21"
+"let b:csv_fixed_width="1,5,9,13,17,21"
+"
+" visuall arrange all columns
+"let g:csv_autocmd_arrange = 1
+" visually arrage for files smaller than 1 MB
+"let g:csv_autocmd_arrange_size = 1024*1024
+"
+"
+"
+"
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " ropevim for refactoring
