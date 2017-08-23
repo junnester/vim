@@ -1,6 +1,6 @@
 set nocompatible                " be iMproved, required
-filetype off                    " required
-filetype plugin indent on       " needed for pyflakes
+"filetype off                   " required
+filetype plugin indent on       " needed for eclim
 syntax on                       " syntax highlighting
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -26,7 +26,7 @@ Plugin 'tpope/vim-fugitive'
 " for Java: ultisnips are java snippets 
 "    see "https://github.com/SirVer/ultisnips
 "    uses <tab>
-"Plugin 'SirVer/ultisnips.git'
+Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
 "Plugin 'Yggdroot/indentLine.git'
@@ -128,8 +128,8 @@ set relativenumber
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
-"colorscheme Tomorrow-Night-Bright  "black bg
-colorscheme Tomorrow-Night-Eighties "dark gray bg
+colorscheme Tomorrow-Night-Bright  "black bg
+"colorscheme Tomorrow-Night-Eighties "dark gray bg
 "colorscheme Tomorrow "white bg
 " search highlight
 set hls
