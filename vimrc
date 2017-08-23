@@ -270,6 +270,8 @@ let g:csv_strict_columns = 1
 "    :help ropevim
 "    setup needed: 
 "        python setup.py install
+"        or yum install python-rope
+"        and/or pip install ropevim
 """""""""""""""""""""""""""""""""""""""""""""
 " Docs
 ""find occurrences command (C-c f by default)
