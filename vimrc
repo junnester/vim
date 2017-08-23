@@ -99,6 +99,11 @@ Plugin 'svermeulen/vim-easyclip'
 " CSV Editing 
 Plugin 'chrisbra/csv.vim'
 "
+" Airline status bar
+Plugin 'vim-airline/vim-airline'
+" Airline themes
+Plugin 'vim-airline/vim-airline-themes'
+
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -275,6 +280,11 @@ let ropevim_vim_completion=1
 "     this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
+" Airline status bar themes
+"     https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_solarized_bg='dark'
+"
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
