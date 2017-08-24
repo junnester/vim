@@ -1,6 +1,5 @@
 set nocompatible                " be iMproved, required
-filetype off                    " required vundle
-"filetype                       " required csv vim , this will ignore 'plugin indent on'
+filetype off                    " required vundle "filetype                       " required csv vim , this will ignore 'plugin indent on'
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
@@ -105,7 +104,12 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'vim-airline/vim-airline'
 " Airline themes
 Plugin 'vim-airline/vim-airline-themes'
-
+"
+" PowerLine status -- not sure how to use. and too heavy
+"Plugin 'powerline/powerline'
+" PowerLine fonts for use in airline
+Plugin 'powerline/fonts'
+"
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -217,7 +221,13 @@ nmap <F8> :TagbarToggle<CR>
 " anyfold active for all filetypes
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
+" enable anyfold and auto-fold everything
 let g:anyfold_activate=1 
+" Identify (and ignore) comment lines
+"let g:anyfold_identify_comments = 1
+" Fold multiline comments
+"let anyfold_fold_comments=1 
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " cycle folding
 """""""""""""""""""""""""""""""""""""""""""""
@@ -278,7 +288,6 @@ let g:csv_strict_columns = 1
 ""
 " use vim's complete function in insert mode 
 let ropevim_vim_completion=1
-"
 " AutoImport
 "    add the name of modules you want to autoimport
 "let g:ropevim_autoimport_modules = ['os', 'shutil'] <usedToBe doubleQuote
@@ -295,9 +304,29 @@ let ropevim_vim_completion=1
 """""""""""""""""""""""""""""""""""""""""""""
 " Airline status bar themes
 "     https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"     deleted sym link:
+"        /etc/fonts/conf.d/70-no-bitmaps.conf
+"        * this works
 """""""""""""""""""""""""""""""""""""""""""""
-let g:airline_solarized_bg='dark'
+" Enable power line fonts
+let g:airline_powerline_fonts=1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 "
+" set AirlineTheme 
+"let g:airline_theme='tomorrow'
+let g:airline_solarized_dark_inactive_border = 1
+let g:airline_theme='ubaryd'
+"
+"
+"
+"
+"
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
