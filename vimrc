@@ -1,5 +1,4 @@
-set nocompatible                " be iMproved, required
-filetype off                    " required vundle "filetype                       " required csv vim , this will ignore 'plugin indent on'
+set nocompatible                " be iMproved, required filetype off                    " required vundle "filetype                       " required csv vim , this will ignore 'plugin indent on'
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
@@ -110,6 +109,8 @@ Plugin 'vim-airline/vim-airline-themes'
 " PowerLine fonts for use in airline
 Plugin 'powerline/fonts'
 "
+" AutoFormat Python code
+Plugin 'tell-k/vim-autopep8'
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -221,8 +222,10 @@ nmap <F8> :TagbarToggle<CR>
 " anyfold active for all filetypes
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
-" enable anyfold and auto-fold everything
-let g:anyfold_activate=1 
+" enable anyfold and auto-fold for everything
+"let g:anyfold_activate=1 
+" fold only file type
+autocmd Filetype <py> let b:anyfold_activate=1
 " Identify (and ignore) comment lines
 "let g:anyfold_identify_comments = 1
 " Fold multiline comments
@@ -320,6 +323,11 @@ let g:airline_symbols.space = "\ua0"
 let g:airline_solarized_dark_inactive_border = 1
 let g:airline_theme='ubaryd'
 "
+"""""""""""""""""""""""""""""""""""""""""""""
+" AutoPep8
+"""""""""""""""""""""""""""""""""""""""""""""
+" keyboard shortcut Autopep8
+autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
 "
 "
 "
