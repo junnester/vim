@@ -23,10 +23,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 "
 "==== JAVA section ==============================
-" for Java: ultisnips are java snippets 
+" for Java: ultisnips are java / python snippets 
 "    see "https://github.com/SirVer/ultisnips
-"    uses <tab>
-"Plugin 'SirVer/ultisnips.git'
+"    uses <tab> by default
+Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
 "Plugin 'Yggdroot/indentLine.git'
@@ -56,10 +56,11 @@ Plugin 'Raimondi/delimitMate'
 " tab complettion
 Plugin 'ervandew/supertab'
 "
+" === Python ===
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
 "
-" Python auto complete 
+" Python auto complete  
 Plugin 'davidhalter/jedi-vim'
 "
 " Python Error highlighting
@@ -330,6 +331,14 @@ let g:airline_theme='ubaryd'
 autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
 "
 "
+"""""""""""""""""""""""""""""""""""""""""""""
+" SirVer/ultisnips
+"     help UltiSnips
+"""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
+let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab> 
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "
 "
