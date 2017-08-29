@@ -57,6 +57,9 @@ Plugin 'Raimondi/delimitMate'
 " tab complettion
 Plugin 'ervandew/supertab'
 "
+" C++ syntax 
+Plugin 'octol/vim-cpp-enhanced-highlight'
+"
 " === Python ===
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
@@ -300,18 +303,23 @@ let ropevim_vim_completion=1
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " Exuberant Ctags - VimTags
-"     to index run to following command in cwd:
+"    to index run to following command in cwd:
 "
-"     ctags -R -f ./.git/tags .
+"    ctags -R -f ./.git/tags .
 "   
-"     this places the tags file in the .git folder
+"    this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " Airline status bar themes
-"     https://github.com/vim-airline/vim-airline/wiki/Screenshots
-"     deleted sym link:
+"   https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"   deleted sym link:
 "        /etc/fonts/conf.d/70-no-bitmaps.conf
 "        * this works
+"   Install fonts:
+"        wget  https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf  https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
+"        sudo mv PowerlineSymbols.otf /usr/share/fonts/
+"        sudo fc-cache -vf
+"        sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 """""""""""""""""""""""""""""""""""""""""""""
 " Enable power line fonts
 let g:airline_powerline_fonts=1
@@ -342,9 +350,31 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "
-"
-"
 """""""""""""""""""""""""""""""""""""""""""""
+" octol/vim-cpp-enhanced-highlight
+"""""""""""""""""""""""""""""""""""""""""""""
+"
+" Highlighting of class scope is disabled by default. To enable set
+let g:cpp_class_scope_highlight = 1
+"
+" Highlighting of member variables is disabled by default. To enable set
+let g:cpp_member_variable_highlight = 1
+"
+" Highlighting of class names in declarations is disabled by default. To enable set
+let g:cpp_class_decl_highlight = 1
+"
+" There are two ways to hightlight template functions. Either
+let g:cpp_experimental_simple_template_highlight = 1
+" which works in most cases, but can be a little slow on large files. Alternatively set
+"let g:cpp_experimental_template_highlight = 1
+" this is not 100%
+"
+" Highlighting of library concepts is enabled by
+let g:cpp_concepts_highlight = 1
+"
+" Vim tend to a have issues with flagging braces as errors, see for example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
+"let c_no_curly_error=1
+
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
