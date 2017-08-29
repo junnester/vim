@@ -1,6 +1,4 @@
-set nocompatible                " be iMproved, required
-filetype off                    " required vundle
-"filetype                       " required csv vim , this will ignore 'plugin indent on'
+set nocompatible                " be iMproved, required filetype off                    " required vundle "filetype                       " required csv vim , this will ignore 'plugin indent on'
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
@@ -25,10 +23,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 "
 "==== JAVA section ==============================
-" for Java: ultisnips are java snippets 
+" for Java: ultisnips are java / python snippets 
 "    see "https://github.com/SirVer/ultisnips
-"    uses <tab>
-"Plugin 'SirVer/ultisnips.git'
+"    uses <tab> by default
+Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
 "Plugin 'Yggdroot/indentLine.git'
@@ -58,10 +56,11 @@ Plugin 'Raimondi/delimitMate'
 " tab complettion
 Plugin 'ervandew/supertab'
 "
+" === Python ===
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
 "
-" Python auto complete 
+" Python auto complete  
 Plugin 'davidhalter/jedi-vim'
 "
 " Python Error highlighting
@@ -105,7 +104,14 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'vim-airline/vim-airline'
 " Airline themes
 Plugin 'vim-airline/vim-airline-themes'
-
+"
+" PowerLine status -- not sure how to use. and too heavy
+"Plugin 'powerline/powerline'
+" PowerLine fonts for use in airline
+Plugin 'powerline/fonts'
+"
+" AutoFormat Python code
+Plugin 'tell-k/vim-autopep8'
 "
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " All of your Plugins must be added before the following line
@@ -217,7 +223,15 @@ nmap <F8> :TagbarToggle<CR>
 " anyfold active for all filetypes
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
-let g:anyfold_activate=1 
+" enable anyfold and auto-fold for everything
+"let g:anyfold_activate=1 
+" fold only file type
+autocmd Filetype <py> let b:anyfold_activate=1
+" Identify (and ignore) comment lines
+"let g:anyfold_identify_comments = 1
+" Fold multiline comments
+"let anyfold_fold_comments=1 
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " cycle folding
 """""""""""""""""""""""""""""""""""""""""""""
@@ -270,13 +284,14 @@ let g:csv_strict_columns = 1
 "    :help ropevim
 "    setup needed: 
 "        python setup.py install
+"        or yum install python-rope
+"        and/or pip install ropevim
 """""""""""""""""""""""""""""""""""""""""""""
 " Docs
 ""find occurrences command (C-c f by default)
 ""
 " use vim's complete function in insert mode 
 let ropevim_vim_completion=1
-"
 " AutoImport
 "    add the name of modules you want to autoimport
 "let g:ropevim_autoimport_modules = ['os', 'shutil'] <usedToBe doubleQuote
@@ -293,9 +308,42 @@ let ropevim_vim_completion=1
 """""""""""""""""""""""""""""""""""""""""""""
 " Airline status bar themes
 "     https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"     deleted sym link:
+"        /etc/fonts/conf.d/70-no-bitmaps.conf
+"        * this works
 """""""""""""""""""""""""""""""""""""""""""""
-let g:airline_solarized_bg='dark'
+" Enable power line fonts
+let g:airline_powerline_fonts=1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 "
+" set AirlineTheme 
+"let g:airline_theme='tomorrow'
+let g:airline_solarized_dark_inactive_border = 1
+let g:airline_theme='ubaryd'
+"
+"""""""""""""""""""""""""""""""""""""""""""""
+" AutoPep8
+"""""""""""""""""""""""""""""""""""""""""""""
+" keyboard shortcut Autopep8
+autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
+" SirVer/ultisnips
+"     help UltiSnips
+"""""""""""""""""""""""""""""""""""""""""""""
+" Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
+let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab> 
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"
+"
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
