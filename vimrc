@@ -60,6 +60,14 @@ Plugin 'ervandew/supertab'
 " C++ syntax 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "
+" rhysd/vim-clang-format C++ auto formater
+"  TODO setup
+Plugin 'rhysd/vim-clang-format'
+"
+" C++ vim.A - E.g. if you are editing foo.c and need to edit foo.h simply execute :A
+"     and you will be editting foo.h, to switch back to foo.c execute :A again. 
+Plugin 'vim-scripts/a.vim'
+"
 " === Python ===
 " syntastic - syntax checking for lots of stuff not java
 Plugin 'vim-syntastic/syntastic'
