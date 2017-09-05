@@ -2,6 +2,7 @@ set nocompatible                " be iMproved, required filetype off            
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
+set mouse=a                     " enable mouse
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " VUNDLE
@@ -63,17 +64,23 @@ Plugin 'vim-syntastic/syntastic'
 " Python auto complete  
 Plugin 'davidhalter/jedi-vim'
 "
-" Python Error highlighting
-Plugin 'kevinw/pyflakes-vim'
+" Python Error highlighting - linter -- NOTE this is merged in Syntastic
+"Plugin 'kevinw/pyflakes-vim'
+"
+" Pep8 linter - highlighing  - wrapper for pyflakes
+Plugin 'nvie/vim-flake8'
 " 
 " Python rope a refactoring library
 Plugin 'python-rope/rope'
 " Python ropevim for refactoring - needs rope
 Plugin 'python-rope/ropevim'
 "
-"==== Structure stuff ===========================
+"==== Project Structure stuff ===========================
+" Project - for managing projects
+"    see help project
+Plugin 'vimplugin/project.vim'
 "
-" TagBar shows project structures like methods... 
+" TagBar shows code structures like methods... 
 Plugin 'majutsushi/tagbar'
 "
 " Vim Tags needed for TagBar -- this needs ctags installed
@@ -219,14 +226,16 @@ endif
 " TagBar
 """""""""""""""""""""""""""""""""""""""""""""
 nmap <F8> :TagbarToggle<CR>
+"
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " anyfold active for all filetypes
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
 " enable anyfold and auto-fold for everything
 "let g:anyfold_activate=1 
-" fold only file type
-autocmd Filetype <py> let b:anyfold_activate=1
+" fold only file type.  1 == True, 0 == False
+autocmd Filetype python let b:anyfold_activate=0
 " Identify (and ignore) comment lines
 "let g:anyfold_identify_comments = 1
 " Fold multiline comments
@@ -341,6 +350,12 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "
+"""""""""""""""""""""""""""""""""""""""""""""
+" nvie/vim-flake8
+"  
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
 "
 "
 """""""""""""""""""""""""""""""""""""""""""""
