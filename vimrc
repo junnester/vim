@@ -1,8 +1,12 @@
-set nocompatible                " be iMproved, required filetype off                    " required vundle "filetype                       " required csv vim , this will ignore 'plugin indent on'
+set nocompatible                " be iMproved, required filetype off
+                                " required vundle "filetype                       
+                                " required csv vim , this will ignore 
+                                "      'plugin indent on'
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
 set mouse=a                     " enable mouse
+set colorcolumn=78              " draws a vertical line at column 78
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " VUNDLE
@@ -145,14 +149,22 @@ filetype plugin indent on    " required
 " line numbers
 set number
 set relativenumber
+"
+" diff mode conitions
+" if &diff
+"     set diffopt+=iwhite  " ignore white space
+" endif
+" 
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
 colorscheme Tomorrow-Night-Bright  "black bg
 "colorscheme Tomorrow-Night-Eighties "dark gray bg
 "colorscheme Tomorrow "white bg
+"
 " search highlight
 set hls
+
 " do not wrap lines
 set wrap!
 "
@@ -356,7 +368,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "
 """""""""""""""""""""""""""""""""""""""""""""
-"
+" Macros
+" NOTE: 
+" for compiling only 1 file
+autocmd filetype python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 "
 """""""""""""""""""""""""""""""""""""""""""""
 """"NOTES on BASICS""""""""""""""""""""""""""
