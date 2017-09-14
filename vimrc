@@ -1,8 +1,12 @@
-set nocompatible                " be iMproved, required
-filetype off                    " required
+set nocompatible                " be iMproved, required filetype off
+                                " required vundle "filetype                       
+                                " required csv vim , this will ignore 
+                                "      'plugin indent on'
 filetype plugin on              " needed for csv.vim
 filetype plugin indent on       " required for pyflakes, vundle
 syntax on                       " syntax highlighting
+set mouse=a                     " enable mouse
+set colorcolumn=78              " draws a vertical line at column 78
 
 "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 " VUNDLE
@@ -26,7 +30,7 @@ Plugin 'tpope/vim-fugitive'
 "==== JAVA section ==============================
 " for Java: ultisnips are java / python snippets 
 "    see "https://github.com/SirVer/ultisnips
-"    uses <tab>
+"    uses <tab> by default
 Plugin 'SirVer/ultisnips.git'
 "
 " for Java:  keeps a vertical line for indents
@@ -75,17 +79,23 @@ Plugin 'vim-syntastic/syntastic'
 " Python auto complete  
 Plugin 'davidhalter/jedi-vim'
 "
-" Python Error highlighting
-Plugin 'kevinw/pyflakes-vim'
+" Python Error highlighting - linter -- NOTE this is merged in Syntastic
+"Plugin 'kevinw/pyflakes-vim'
+"
+" Pep8 linter - highlighing  - wrapper for pyflakes
+Plugin 'nvie/vim-flake8'
 " 
 " Python rope a refactoring library
 Plugin 'python-rope/rope'
 " Python ropevim for refactoring - needs rope
 Plugin 'python-rope/ropevim'
 "
-"==== Structure stuff ===========================
+"==== Project Structure stuff ===========================
+" Project - for managing projects
+"    see help project
+Plugin 'vimplugin/project.vim'
 "
-" TagBar shows project structures like methods... 
+" TagBar shows code structures like methods... 
 Plugin 'majutsushi/tagbar'
 "
 " Vim Tags needed for TagBar -- this needs ctags installed
@@ -150,14 +160,22 @@ filetype plugin indent on    " required
 " line numbers
 set number
 set relativenumber
+"
+" diff mode conitions
+" if &diff
+"     set diffopt+=iwhite  " ignore white space
+" endif
+" 
 " syntax colors
 "colorschem monokai
 "colorschem vibrantink
 colorscheme Tomorrow-Night-Bright  "black bg
 "colorscheme Tomorrow-Night-Eighties "dark gray bg
 "colorscheme Tomorrow "white bg
+"
 " search highlight
 set hls
+
 " do not wrap lines
 set wrap!
 "
@@ -231,14 +249,16 @@ endif
 " TagBar
 """""""""""""""""""""""""""""""""""""""""""""
 nmap <F8> :TagbarToggle<CR>
+"
+"
 """""""""""""""""""""""""""""""""""""""""""""
 " anyfold active for all filetypes
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
 " enable anyfold and auto-fold for everything
 "let g:anyfold_activate=1 
-" fold only file type
-autocmd Filetype <py> let b:anyfold_activate=1
+" fold only file type.  1 == True, 0 == False
+autocmd Filetype python let b:anyfold_activate=0
 " Identify (and ignore) comment lines
 "let g:anyfold_identify_comments = 1
 " Fold multiline comments
@@ -311,16 +331,16 @@ let ropevim_vim_completion=1
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " Exuberant Ctags - VimTags
-"    to index run to following command in cwd:
+"     to index run to following command in cwd:
 "
-"    ctags -R -f ./.git/tags .
+"     ctags -R -f ./.git/tags .
 "   
-"    this places the tags file in the .git folder
+"     this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " Airline status bar themes
-"   https://github.com/vim-airline/vim-airline/wiki/Screenshots
-"   deleted sym link:
+"     https://github.com/vim-airline/vim-airline/wiki/Screenshots
+"     deleted sym link:
 "        /etc/fonts/conf.d/70-no-bitmaps.conf
 "        * this works
 "   Install fonts:
@@ -365,8 +385,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " Highlighting of class scope is disabled by default. To enable set
 let g:cpp_class_scope_highlight = 1
 "
-" Highlighting of member variables is disabled by default. To enable set
-let g:cpp_member_variable_highlight = 1
+"""""""""""""""""""""""""""""""""""""""""""""
+" Macros
+" NOTE: 
+" for compiling only 1 file
+autocmd filetype python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 "
 " Highlighting of class names in declarations is disabled by default. To enable set
 let g:cpp_class_decl_highlight = 1
@@ -382,7 +407,13 @@ let g:cpp_concepts_highlight = 1
 "
 " Vim tend to a have issues with flagging braces as errors, see for example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
 "let c_no_curly_error=1
-
+"
+"
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""
+" MACROS
+"""""""""""""""""""""""""""""""""""""""""""""
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
