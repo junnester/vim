@@ -1,147 +1,191 @@
-" basics 
-set nocompatible                " be iMproved, required
-filetype off                    " required
-                                " required vundle "filetype
-                                " required csv vim , this will ignore 
-                                "      'plugin indent on'
-filetype plugin on              " needed for csv.vim
-filetype plugin indent on       " required for pyflakes, vundle
-syntax on                       " syntax highlighting
-set mouse=a                     " enable mouse
-set colorcolumn=78              " draws a vertical line at column 78
+" basics {
+    " Automatic reloading of .vimrc
+    autocmd! bufwritepost .vimrc source %
 
-"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-" VUNDLE
-"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    " required
+    set nocompatible
+    " required vundle, csv vim, p
+    filetype off
+    " required for pyflakes, vundle
+    filetype plugin indent on
+    syntax on
+
+    "enable mouse... a small kitten will die when everytime the mouse is used
+    "set mouse=a
+
+    " draws a vertical line at column 78
+    set colorcolumn=78
+
+
+    au VimResized * exe "normal! \<c-w>="
+
+    " Make Copy and Paste work
+    " paste toggle
+    set pastetoggle=<F2>
+    set clipboard=unnamed
+
+"}
+
+
+""Functions {
+    " put functions here
+
+"}
+
+
+"mapping{
+    " Rebind <Leader> key
+    " easy access
+    let mapleader = ","
+    
+    " Bind nohl
+    " Removes highlight of your last search
+    " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
+    noremap <C-n> :nohl<CR>
+    vnoremap <C-n> :nohl<CR>
+    inoremap <C-n> :nohl<CR>
+
+
+    " Toggle line numbers
+    nnoremap <leader>n :setlocal number!<cr>
+    " Toggle relative line numbers
+    nnoremap <leader>r :setlocal relativenumber!<cr>
+
+    " VISUAL
+    " map sort function to a key
+    vnoremap <Leader>s :sort<CR>
+
+"}
+
+
+
+" Vundle Plugins {
+    " Vundle Options
     " set the runtime path to include Vundle and initialize
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
-    " alternatively, pass a path where Vundle should install plugins
-    "call vundle#begin('~/some/path/here')
     " let Vundle manage Vundle, required
     Plugin 'VundleVim/Vundle.vim'
-    "
-    " The following are examples of different formats supported.
-    " Keep Plugin commands between vundle#begin/end.
-    "
-    " GitHub repo
-    " fugitive is a Git plugin for git pull / push etc
-    "   see https://github.com/tpope/vim-fugitive
-    Plugin 'tpope/vim-fugitive'
-    "
-    "==== JAVA section ==============================
-    " for Java: ultisnips are java / python snippets 
-    "    see "https://github.com/SirVer/ultisnips
-    "    uses <tab> by default to activate
-    Plugin 'SirVer/ultisnips.git'
-    "
-    " for Java: autocopmlete code
-    "    https://github.com/artur-shaik/vim-javacomplete2
-    "Plugin 'artur-shaik/vim-javacomplete2'
-    "Plugin 'dansomething/vim-eclim'
-    "= end JAVA section =
-    "
-    "==== Syntax stuff ==============================
-    " Theme - need high color - $ tmux -2
-    Plugin 'sickill/vim-monokai'
-    Plugin 'vim-scripts/vibrantink'
-    Plugin 'd11wtq/tomorrow-theme-vim'
-    "
-    " Syntax hilighting for salt
-    Plugin 'saltstack/salt-vim'
-    "
-    " Syntax hilighting for Cisco and network - enable with :set ft=cisco
-    Plugin 'CyCoreSystems/vim-cisco-ios'
-    "
-    " for Bracket and quote completion
-    Plugin 'Raimondi/delimitMate'
-    "
-    " tab complettion
-    Plugin 'ervandew/supertab'
-    "
-    " C++ syntax 
-    Plugin 'octol/vim-cpp-enhanced-highlight'
-    "
-    " rhysd/vim-clang-format C++ auto formater
-    "  TODO setup
-    Plugin 'rhysd/vim-clang-format'
-    "
-    " C++ vim.A - E.g. if you are editing foo.c and need to edit foo.h simply execute :A
-    "     and you will be editting foo.h, to switch back to foo.c execute :A again. 
-    Plugin 'vim-scripts/a.vim'
-    "
-    " === Python ===
-    " syntastic - syntax checking for lots of stuff not java
-    Plugin 'vim-syntastic/syntastic'
-    "
-    " Python auto complete  
-    Plugin 'davidhalter/jedi-vim'
-    "
-    " Python Error highlighting - linter -- NOTE this is merged in Syntastic
-    "Plugin 'kevinw/pyflakes-vim'
-    "
-    " Pep8 linter - highlighing  - wrapper for pyflakes
-    Plugin 'nvie/vim-flake8'
-    " 
-    " Python rope a refactoring library
-    Plugin 'python-rope/rope'
-    " Python ropevim for refactoring - needs rope
-    Plugin 'python-rope/ropevim'
-    "
-    "==== Project Structure stuff ===========================
-    " Project - for managing projects
-    "    see help project
-    Plugin 'vimplugin/project.vim'
-    "
-    " TagBar shows code structures like methods... 
-    Plugin 'majutsushi/tagbar'
-    "
-    " Vim Tags needed for TagBar -- this needs ctags installed
-    Plugin 'szw/vim-tags'
-    "
-    " undo tree
-    Plugin 'mbbill/undotree'
-    "
-    " any fold - folds code by indent
-    Plugin 'pseewald/vim-anyfold'
-    "
-    " cycle folding -- like togle instead of vim default 
-    Plugin 'arecarn/vim-fold-cycle'
-    "
-    "
-    "==== Utilities and Tools =======================
-    "
-    " Repeat vim - make . better
-    Plugin 'tpope/vim-repeat'
-    "
-    " Make using the clipboard and pastbuffers easier
-    Plugin 'svermeulen/vim-easyclip'
-    "
-    " CSV Editing 
-    Plugin 'chrisbra/csv.vim'
-    "
-    " Airline status bar
-    Plugin 'vim-airline/vim-airline'
-    " Airline themes
-    Plugin 'vim-airline/vim-airline-themes'
-    "
-    " PowerLine status -- not sure how to use. and too heavy
-    "Plugin 'powerline/powerline'
-    " PowerLine fonts for use in airline
-    Plugin 'powerline/fonts'
-    "
-    " AutoFormat Python code
-    Plugin 'tell-k/vim-autopep8'
-    "
-    " for Java:  keeps a vertical line for indents
-    "Plugin 'Yggdroot/indentLine.git'
-    "Plugin 'nathanaelkane/vim-indent-guides' " <<  no like
-    "
-    " Logstash syntax highlighing
-    Plugin 'robbles/logstash.vim'
-"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-" All of your Plugins must be added before the following line
-"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    " GitHub Repo Plugins {
+        " fugitive is a Git plugin for git pull / push etc
+        "   see https://github.com/tpope/vim-fugitive
+        Plugin 'tpope/vim-fugitive'
+
+        "==== JAVA section ==============================
+        " for Java: ultisnips are java / python snippets 
+        "    see "https://github.com/SirVer/ultisnips
+        "    uses <tab> by default to activate
+        Plugin 'SirVer/ultisnips.git'
+        "
+        " for Java: autocopmlete code
+        "    https://github.com/artur-shaik/vim-javacomplete2
+        "Plugin 'artur-shaik/vim-javacomplete2'
+        "Plugin 'dansomething/vim-eclim'
+        "= end JAVA section =
+        "
+        "==== Syntax stuff ==============================
+        " Theme - need high color - $ tmux -2
+        Plugin 'sickill/vim-monokai'
+        Plugin 'vim-scripts/vibrantink'
+        Plugin 'd11wtq/tomorrow-theme-vim'
+        "
+        " Syntax hilighting for salt
+        Plugin 'saltstack/salt-vim'
+        "
+        " Syntax hilighting for Cisco and network - enable with :set ft=cisco
+        Plugin 'CyCoreSystems/vim-cisco-ios'
+        "
+        " for Bracket and quote completion
+        Plugin 'Raimondi/delimitMate'
+        "
+        " tab complettion
+        Plugin 'ervandew/supertab'
+        "
+        " C++ syntax 
+        Plugin 'octol/vim-cpp-enhanced-highlight'
+        "
+        " rhysd/vim-clang-format C++ auto formater
+        "  TODO setup
+        Plugin 'rhysd/vim-clang-format'
+        "
+        " C++ vim.A - E.g. if you are editing foo.c and need to edit foo.h simply execute :A
+        "     and you will be editting foo.h, to switch back to foo.c execute :A again. 
+        Plugin 'vim-scripts/a.vim'
+        "
+        " === Python ===
+        " syntastic - syntax checking for lots of stuff not java
+        Plugin 'vim-syntastic/syntastic'
+        "
+        " Python auto complete  
+        Plugin 'davidhalter/jedi-vim'
+        "
+        " Python Error highlighting - linter -- NOTE this is merged in Syntastic
+        "Plugin 'kevinw/pyflakes-vim'
+        "
+        " Pep8 linter - highlighing  - wrapper for pyflakes
+        Plugin 'nvie/vim-flake8'
+        " 
+        " Python rope a refactoring library
+        Plugin 'python-rope/rope'
+        " Python ropevim for refactoring - needs rope
+        Plugin 'python-rope/ropevim'
+        "
+        "==== Project Structure stuff ===========================
+        " Project - for managing projects
+        "    see help project
+        Plugin 'vimplugin/project.vim'
+        "
+        " TagBar shows code structures like methods... 
+        Plugin 'majutsushi/tagbar'
+        "
+        " Vim Tags needed for TagBar -- this needs ctags installed
+        Plugin 'szw/vim-tags'
+        "
+        " undo tree
+        Plugin 'mbbill/undotree'
+        "
+        " any fold - folds code by indent
+        Plugin 'pseewald/vim-anyfold'
+        "
+        " cycle folding -- like togle instead of vim default 
+        Plugin 'arecarn/vim-fold-cycle'
+        "
+        "
+        "==== Utilities and Tools =======================
+        "
+        " Repeat vim - make . better
+        Plugin 'tpope/vim-repeat'
+        "
+        " Make using the clipboard and pastbuffers easier
+        Plugin 'svermeulen/vim-easyclip'
+        "
+        " CSV Editing 
+        Plugin 'chrisbra/csv.vim'
+        "
+        " Airline status bar
+        Plugin 'vim-airline/vim-airline'
+        " Airline themes
+        Plugin 'vim-airline/vim-airline-themes'
+        "
+        " PowerLine status -- not sure how to use. and too heavy
+        "Plugin 'powerline/powerline'
+        " PowerLine fonts for use in airline
+        Plugin 'powerline/fonts'
+        "
+        " AutoFormat Python code
+        Plugin 'tell-k/vim-autopep8'
+        "
+        " for Java:  keeps a vertical line for indents
+        "Plugin 'Yggdroot/indentLine.git'
+        "Plugin 'nathanaelkane/vim-indent-guides' " <<  no like
+        "
+        " Logstash syntax highlighing
+        Plugin 'robbles/logstash.vim'
+    "}
+
+
+    " All of your Plugins must be added before the following line
     call vundle#end()            " required
     filetype plugin indent on    " required
     " To ignore plugin indent changes, instead use:
@@ -155,7 +199,7 @@ set colorcolumn=78              " draws a vertical line at column 78
     "
     " see :h vundle for more details or wiki for FAQ
     " Put your non-Plugin stuff after this line
-"^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"}
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -165,23 +209,23 @@ set colorcolumn=78              " draws a vertical line at column 78
         set number
         set relativenumber
     "
-    " diff mode conitions
-    " if &diff
-    "     set diffopt+=iwhite  " ignore white space
-    " endif
+    " diff mode conitionsj
+    if &diff
+         set diffopt+=iwhite  " ignore white space
+    endif
     " 
     " syntax colors
     "colorschem monokai
     "colorschem vibrantink
-        colorscheme Tomorrow-Night-Bright  "black bg
-    "colorscheme Tomorrow-Night-Eighties "dark gray bg
+    "colorscheme Tomorrow-Night-Bright  "black bg
+    colorscheme Tomorrow-Night-Eighties "dark gray bg
     "colorscheme Tomorrow "white bg
     "
     " search highlight
-        set hls
+    set hls
     
     " do not wrap lines
-        set wrap!
+    set nowrap
     "
     " remove trailing whitespace on save 'w:'
     "     could be dangerous
@@ -223,7 +267,7 @@ set colorcolumn=78              " draws a vertical line at column 78
     "   shiftwidth: number of space to move when hitting tab-key
     set tabstop=4 softtabstop=4 shiftwidth=4
 
-    " display indentation guides.. looks like  |---|---
+    " display indentation guides.. looks like  |   |    |
     "set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
     set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:×
 
