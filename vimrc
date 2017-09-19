@@ -14,7 +14,7 @@
     "set mouse=a
 
     " draws a vertical line at column 78
-    set colorcolumn=78
+""    set colorcolumn=78
 
 
     au VimResized * exe "normal! \<c-w>="
@@ -48,8 +48,6 @@
 
     " Toggle line numbers
     nnoremap <leader>n :setlocal number!<cr>
-    " Toggle relative line numbers
-    nnoremap <leader>r :setlocal relativenumber!<cr>
 
     " VISUAL
     " map sort function to a key
@@ -73,10 +71,6 @@
         Plugin 'tpope/vim-fugitive'
 
         "==== JAVA section ==============================
-        " for Java: ultisnips are java / python snippets 
-        "    see "https://github.com/SirVer/ultisnips
-        "    uses <tab> by default to activate
-        Plugin 'SirVer/ultisnips.git'
         "
         " for Java: autocopmlete code
         "    https://github.com/artur-shaik/vim-javacomplete2
@@ -207,7 +201,6 @@
 """""""""""""""""""""""""""""""""""""""""""""
     " line numbers
         set number
-        set relativenumber
     "
     " diff mode conitionsj
     if &diff
@@ -408,41 +401,24 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 "   deleted sym link:
 "        /etc/fonts/conf.d/70-no-bitmaps.conf
 "        * this works
-"   Install fonts:
-"        wget  https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf  https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
-"        sudo mv PowerlineSymbols.otf /usr/share/fonts/
-"        sudo fc-cache -vf
-"        sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 """""""""""""""""""""""""""""""""""""""""""""
-    " Enable power line fonts
-    let g:airline_powerline_fonts=1
-
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
-
-    let g:airline_symbols.space = "\ua0"
-    "
-    " set AirlineTheme 
-    "let g:airline_theme='tomorrow'
-    let g:airline_solarized_dark_inactive_border = 1
-    let g:airline_theme='ubaryd'
-    "
+"" Enable power line fonts
+"let g:airline_powerline_fonts=0
+"if !exists('g:airline_symbols')
+"  let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.space = "\ua0"
+""
+"" set AirlineTheme 
+""let g:airline_theme='tomorrow'
+"let g:airline_solarized_dark_inactive_border = 1
+"let g:airline_theme='ubaryd'
+""
 """""""""""""""""""""""""""""""""""""""""""""
 " AutoPep8
 """""""""""""""""""""""""""""""""""""""""""""
 " keyboard shortcut Autopep8
 autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
-"
-"
-"""""""""""""""""""""""""""""""""""""""""""""
-" SirVer/ultisnips
-"     help UltiSnips
-"""""""""""""""""""""""""""""""""""""""""""""
-    " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
-    let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab> 
-    let g:UltiSnipsJumpForwardTrigger="<c-b>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
 "
 """""""""""""""""""""""""""""""""""""""""""""
