@@ -157,11 +157,6 @@
         " CSV Editing 
         Plugin 'chrisbra/csv.vim'
         "
-        " Airline status bar
-        Plugin 'vim-airline/vim-airline'
-        " Airline themes
-        Plugin 'vim-airline/vim-airline-themes'
-        "
         " PowerLine status -- not sure how to use. and too heavy
         "Plugin 'powerline/powerline'
         " PowerLine fonts for use in airline
@@ -394,26 +389,6 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 "   
 "    this places the tags file in the .git folder
 "
-"""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""
-" Airline status bar themes
-"   https://github.com/vim-airline/vim-airline/wiki/Screenshots
-"   deleted sym link:
-"        /etc/fonts/conf.d/70-no-bitmaps.conf
-"        * this works
-"""""""""""""""""""""""""""""""""""""""""""""
-"" Enable power line fonts
-"let g:airline_powerline_fonts=0
-"if !exists('g:airline_symbols')
-"  let g:airline_symbols = {}
-"endif
-"let g:airline_symbols.space = "\ua0"
-""
-"" set AirlineTheme 
-""let g:airline_theme='tomorrow'
-"let g:airline_solarized_dark_inactive_border = 1
-"let g:airline_theme='ubaryd'
-""
 """""""""""""""""""""""""""""""""""""""""""""
 " AutoPep8
 """""""""""""""""""""""""""""""""""""""""""""
