@@ -86,8 +86,9 @@
 "usability{
     " When switching buffers, preserve window view.
     if v:version >= 700
-       au BufLeave * if !&diff | let b:winview = winsaveview() | endif
-       au BufEnter * if exists('b:winview') && !&diff | call   winrestview(b:winview) | endif
+        "vim 700 and up
+        au BufLeave * if !&diff | let b:winview = winsaveview() | endif
+        au BufEnter * if exists('b:winview') && !&diff | call   winrestview(b:winview) | endif
     endif
 "}
 
