@@ -14,7 +14,10 @@
     "set mouse=a
 
     " draws a vertical line at column 78
-    set colorcolumn=78
+    if v:version >= 703
+        " if vim version 7.3 or more
+        set colorcolumn=78
+    endif
 
 
     au VimResized * exe "normal! \<c-w>="
@@ -23,13 +26,36 @@
     " paste toggle
     set pastetoggle=<F2>
     set clipboard=unnamed
+    " stay 10 lines from the ends
+    set scrolloff=10
+    " searching appears centered. zz means center
+    nnoremap n nzz
+    nnoremap N Nzz
+    nnoremap * *zz
+    nnoremap # #zz
+    nnoremap g* g*zz
+    nnoremap g# g#zz
 
 "}
 
+" python {
+    """
+    let $PYTHONPATH='/opt/spot:/some/other/dir'
+"}
 
 ""Functions {
     " put functions here
 
+    " function to remove trailing white space
+    function! StripTrailingWhitespace()
+        if !&binary && &filetype != 'diff'
+            normal mz
+            normal Hmy
+            %s/\s\+$//e
+            normal 'yz<CR>
+            normal `z
+        endif
+    endfunction
 "}
 
 
@@ -37,7 +63,7 @@
     " Rebind <Leader> key
     " easy access
     let mapleader = ","
-    
+
     " Bind nohl
     " Removes highlight of your last search
     " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
@@ -57,6 +83,13 @@
 
 "}
 
+"usability{
+    " When switching buffers, preserve window view.
+    if v:version >= 700
+       au BufLeave * if !&diff | let b:winview = winsaveview() | endif
+       au BufEnter * if exists('b:winview') && !&diff | call   winrestview(b:winview) | endif
+    endif
+"}
 
 
 " Vundle Plugins {
@@ -73,7 +106,7 @@
         Plugin 'tpope/vim-fugitive'
 
         "==== JAVA section ==============================
-        " for Java: ultisnips are java / python snippets 
+        " for Java: ultisnips are java / python snippets
         "    see "https://github.com/SirVer/ultisnips
         "    uses <tab> by default to activate
         Plugin 'SirVer/ultisnips.git'
@@ -102,7 +135,7 @@
         " tab complettion
         Plugin 'ervandew/supertab'
         "
-        " C++ syntax 
+        " C++ syntax
         Plugin 'octol/vim-cpp-enhanced-highlight'
         "
         " rhysd/vim-clang-format C++ auto formater
@@ -110,14 +143,14 @@
         Plugin 'rhysd/vim-clang-format'
         "
         " C++ vim.A - E.g. if you are editing foo.c and need to edit foo.h simply execute :A
-        "     and you will be editting foo.h, to switch back to foo.c execute :A again. 
+        "     and you will be editting foo.h, to switch back to foo.c execute :A again.
         Plugin 'vim-scripts/a.vim'
         "
         " === Python ===
         " syntastic - syntax checking for lots of stuff not java
         Plugin 'vim-syntastic/syntastic'
         "
-        " Python auto complete  
+        " Python auto complete
         Plugin 'davidhalter/jedi-vim'
         "
         " Python Error highlighting - linter -- NOTE this is merged in Syntastic
@@ -125,7 +158,7 @@
         "
         " Pep8 linter - highlighing  - wrapper for pyflakes
         Plugin 'nvie/vim-flake8'
-        " 
+        "
         " Python rope a refactoring library
         Plugin 'python-rope/rope'
         " Python ropevim for refactoring - needs rope
@@ -136,7 +169,7 @@
         "    see help project
         Plugin 'vimplugin/project.vim'
         "
-        " TagBar shows code structures like methods... 
+        " TagBar shows code structures like methods...
         Plugin 'majutsushi/tagbar'
         "
         " Vim Tags needed for TagBar -- this needs ctags installed
@@ -148,7 +181,7 @@
         " any fold - folds code by indent
         Plugin 'pseewald/vim-anyfold'
         "
-        " cycle folding -- like togle instead of vim default 
+        " cycle folding -- like togle instead of vim default
         Plugin 'arecarn/vim-fold-cycle'
         "
         "
@@ -160,7 +193,7 @@
         " Make using the clipboard and pastbuffers easier
         Plugin 'svermeulen/vim-easyclip'
         "
-        " CSV Editing 
+        " CSV Editing
         Plugin 'chrisbra/csv.vim'
         "
         " Airline status bar
@@ -213,7 +246,7 @@
     if &diff
          set diffopt+=iwhite  " ignore white space
     endif
-    " 
+    "
     " syntax colors
     "colorschem monokai
     "colorschem vibrantink
@@ -223,25 +256,17 @@
     "
     " search highlight
     set hls
-    
+
     " do not wrap lines
     set nowrap
     "
     " remove trailing whitespace on save 'w:'
     "     could be dangerous
-        "autocmd BufWritePre * %s/\s\+$//e
-        " pytthon only
-        autocmd BufWritePre *.py %s/\s\+$//e
-    " function to remove trailing white space
-        function StripTrailingWhitespace()
-          if !&binary && &filetype != 'diff'
-            normal mz
-            normal Hmy
-            %s/\s\+$//e
-            normal 'yz<CR>
-            normal `z
-          endif
-        endfunction
+    "autocmd BufWritePre * %s/\s\+$//e
+    " pytthon only
+    autocmd BufWritePre *.py %s/\s\+$//e
+    autocmd BufWritePre *.jinja %s/\s\+$//e
+    autocmd BufWritePre *.vimrc %s/\s\+$//e
 """""""""""""""""""""""""""""""""""""""""""""
 " For utf-8 encoding
 """""""""""""""""""""""""""""""""""""""""""""
@@ -259,7 +284,7 @@
 " TABs
 " TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
 " elimiate tab conversion for non python files
-"                                           
+"
 """""""""""""""""""""""""""""""""""""""""""""
     " use 4 spaces for tabs
     "   tabstop : tabs == number of spaces
@@ -324,13 +349,13 @@ nmap <F8> :TagbarToggle<CR>
 "   see :h anyfold
 """""""""""""""""""""""""""""""""""""""""""""
 " enable anyfold and auto-fold for everything
-"let g:anyfold_activate=1 
+"let g:anyfold_activate=1
 " fold only file type.  1 == True, 0 == False
 autocmd Filetype python let b:anyfold_activate=0
 " Identify (and ignore) comment lines
 "let g:anyfold_identify_comments = 1
 " Fold multiline comments
-"let anyfold_fold_comments=1 
+"let anyfold_fold_comments=1
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " cycle folding
@@ -342,10 +367,10 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 """""""""""""""""""""""""""""""""""""""""""""
 " vim-easyclip - easy clipboad usage (needs repate.vim)
 """""""""""""""""""""""""""""""""""""""""""""
-   " NOTE: m is now cut (text) and dd will 'naturaly' delete 
+   " NOTE: m is now cut (text) and dd will 'naturaly' delete
    "      usage: <motion> then mm - to cut (or move)
    "             p - to put
-   " 
+   "
    " gm to add mark instead m
    nnoremap gm m
 """""""""""""""""""""""""""""""""""""""""""""
@@ -379,7 +404,7 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 " ropevim for refactoring
 "    https://github.com/python-rope/ropevim
 "    :help ropevim
-"    setup needed: 
+"    setup needed:
 "        python setup.py install
 "        or yum install python-rope
 "        and/or pip install ropevim
@@ -387,7 +412,7 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
     " Docs
     ""find occurrences command (C-c f by default)
     ""
-    " use vim's complete function in insert mode 
+    " use vim's complete function in insert mode
     let ropevim_vim_completion=1
     " AutoImport
     "    add the name of modules you want to autoimport
@@ -398,22 +423,24 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 "    to index run to following command in cwd:
 "
 "    ctags -R -f ./.git/tags .
-"   
+"        then do :set tags+=/opt/spot
+"
 "    this places the tags file in the .git folder
 "
 """""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""
-" Airline status bar themes
-"   https://github.com/vim-airline/vim-airline/wiki/Screenshots
-"   deleted sym link:
-"        /etc/fonts/conf.d/70-no-bitmaps.conf
-"        * this works
-"   Install fonts:
-"        wget  https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf  https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
-"        sudo mv PowerlineSymbols.otf /usr/share/fonts/
-"        sudo fc-cache -vf
-"        sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
-"""""""""""""""""""""""""""""""""""""""""""""
+
+"Airline status bar themes {
+    """
+    " https://github.com/vim-airline/vim-airline/wiki/Screenshots
+    " deleted sym link:
+    "     /etc/fonts/conf.d/70-no-bitmaps.conf
+    "     * this works
+    " Install fonts:
+    "     wget  https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf  https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf
+    "     sudo mv PowerlineSymbols.otf /usr/share/fonts/
+    "     sudo fc-cache -vf
+    "     sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
+    """
     " Enable power line fonts
     let g:airline_powerline_fonts=1
 
@@ -423,11 +450,14 @@ nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
 
     let g:airline_symbols.space = "\ua0"
     "
-    " set AirlineTheme 
+    " set AirlineTheme
     "let g:airline_theme='tomorrow'
     let g:airline_solarized_dark_inactive_border = 1
     let g:airline_theme='ubaryd'
     "
+"}
+
+
 """""""""""""""""""""""""""""""""""""""""""""
 " AutoPep8
 """""""""""""""""""""""""""""""""""""""""""""
@@ -440,7 +470,7 @@ autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
 "     help UltiSnips
 """""""""""""""""""""""""""""""""""""""""""""
     " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
-    let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab> 
+    let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab>
     let g:UltiSnipsJumpForwardTrigger="<c-b>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "
@@ -450,7 +480,7 @@ autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
 """""""""""""""""""""""""""""""""""""""""""""
     "
 """""""""""""""""""""""""""""""""""""""""""""
-" Syntastic 
+" Syntastic
 """""""""""""""""""""""""""""""""""""""""""""
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -467,7 +497,7 @@ autocmd FileType python noremap <buffer> <F7> :call Autopep8()<CR>
 "
 """""""""""""""""""""""""""""""""""""""""""""
 " Macros
-" NOTE: 
+" NOTE:
 " for compiling only 1 file
 autocmd filetype python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
 autocmd filetype c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
@@ -477,15 +507,15 @@ autocmd filetype cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%')
 """"NOTES on BASICS""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 " To change two vertically split windows to horizonally split
-" 
+"
 " Ctrl-w t Ctrl-w K
-" 
+"
 " Horizontally to vertically:
-" 
+"
 " Ctrl-w t Ctrl-w H
-" 
+"
 " Explanations:
-" 
+"
 " Ctrl-w t makes the first (topleft) window current Ctrl-w K moves the current
 " window to full-width at the very top Ctrl-w H moves the current window to
 " full-height at far left
