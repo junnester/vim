@@ -1,6 +1,28 @@
+" MUSTDO{
+    "Make CapLock == Escape
+    "Key repleat rate high
+"}
+
+"TIL{
+    " ci) - Change Inside )-parens
+    " ci" - Change Inside "-quotes
+    " ci} - Change Inside }-braces
+    " di} - Delete Inside }-braces
+    " ... etc
+"}
+
 " basics {
     " Automatic reloading of .vimrc
     autocmd! bufwritepost .vimrc source %
+    " Remove trailing whitespace on save 'w:'
+    autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
+    autocmd VimResized * exe "normal! \<c-w>="
+
+    syntax on
+    " search highlight
+    set hls
+    " Do not wrap lines
+    set nowrap
 
     " required
     set nocompatible
@@ -8,23 +30,33 @@
     filetype off
     " required for pyflakes, vundle
     filetype plugin indent on
-    syntax on
 
     "enable mouse... a small kitten will die when everytime the mouse is used
     "set mouse=a
 
-    " draws a vertical line at column 78
-    if v:version >= 703
-        " if vim version 7.3 or more
-        set colorcolumn=78
-    endif
-
-
-    au VimResized * exe "normal! \<c-w>="
+    "ColumnLimit(80) {
+        """ 
+        " Old fart rule to stay under 80 columnss.
+        " I like to keeps everyting in view 
+        " and as a side effect, funcions / methods tend to be smaller
+        """
+        if v:version >= 703
+            " if vim version 7.3 or more
+            " draws a vertical line at column 76
+            set colorcolumn=76
+        else
+            " highlights lines after column 76
+            syntax match Search /\%<81v.\%>77v/
+            syntax match ErrorMsg /\%>80v.\+/
+            au BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
+            au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
+        endif
+    "}
 
     " Make Copy and Paste work
     " paste toggle
     set pastetoggle=<F2>
+
     set clipboard=unnamed
     " stay 10 lines from the ends
     set scrolloff=10
@@ -255,19 +287,6 @@
     colorscheme Tomorrow-Night-Eighties "dark gray bg
     "colorscheme Tomorrow "white bg
     "
-    " search highlight
-    set hls
-
-    " do not wrap lines
-    set nowrap
-    "
-    " remove trailing whitespace on save 'w:'
-    "     could be dangerous
-    "autocmd BufWritePre * %s/\s\+$//e
-    " pytthon only
-    autocmd BufWritePre *.py %s/\s\+$//e
-    autocmd BufWritePre *.jinja %s/\s\+$//e
-    autocmd BufWritePre *.vimrc %s/\s\+$//e
 """""""""""""""""""""""""""""""""""""""""""""
 " For utf-8 encoding
 """""""""""""""""""""""""""""""""""""""""""""
