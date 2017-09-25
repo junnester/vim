@@ -27,7 +27,6 @@
     " Remove trailing whitespace on save 'w:'
     autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
     autocmd VimResized * exe "normal! \<c-w>="
-    "makes 
     syntax on
     " search highlight
     set hlsearch
@@ -46,7 +45,7 @@
     filetype plugin indent on
     " stay 10 lines from the ends
     set scrolloff=10
-    " Diff Ignore Whitespace 
+    " Diff Ignore Whitespace
     if &diff
         set diffopt+=iwhite  " ignore white space
     endif
@@ -60,8 +59,8 @@
     "}
 
     " centeredSearching{
-        """ 
-        " n, *, # will be centered 
+        """
+        " n, *, # will be centered
         " so it's easy to find the stupid thing
         """
         nnoremap n nzz
@@ -73,9 +72,9 @@
     " }
 
     " ColumnLimit(80) {
-        """ 
+        """
         " OldFart rule to stay under 80 columnss.
-        " I like to keeps everyting in view 
+        " I like to keeps everyting in view
         " and as a side effect, funcions / methods tend to be smaller
         """
         if v:version >= 703
@@ -90,7 +89,7 @@
             au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
         endif
     " }
-    
+
     " set_utf-8_encoding {
         if has("multi_byte")
             if &termencoding == ""
@@ -106,7 +105,7 @@
     " tabs {
         " TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
         " elimiate tab conversion for non python files
-        
+
         " use 4 spaces for tabs
         "   tabstop : tabs == number of spaces
         "   softtabstop: tabs == number of spaces while editing
@@ -128,7 +127,7 @@
         " convert spaces to tabs after writing file (to show guides again)
         autocmd! bufwritepost * set noexpandtab | retab! 4
         "
-    }
+    "}
 "}
 
 " python {
@@ -172,7 +171,7 @@
 "}
 
 "usability {
-    " Convenient things to have 
+    " Convenient things to have
     "
     " When switching buffers, preserve window view.
     if v:version >= 700
@@ -240,7 +239,7 @@
         "  TODO setup
         Plugin 'rhysd/vim-clang-format'
         "
-        " C++ vim.A - E.g. if you are editing foo.c 
+        " C++ vim.A - E.g. if you are editing foo.c
         "     and need to edit foo.h simply execute :A
         "     and you will be editting foo.h, to switch back to foo.c execute :A again.
         Plugin 'vim-scripts/a.vim'
@@ -310,14 +309,16 @@
         "
         " Logstash syntax highlighing
         Plugin 'robbles/logstash.vim'
+        " Markdown Preivew
+        Plugin 'JamshedVesuna/vim-markdown-preview'
     "}
-    
+
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
     filetype plugin indent on    " required
     " To ignore plugin indent changes, instead use:
     "filetype plugin on
-    
+
     " Brief help
         " :PluginList         lists configured plugins
         " :PluginInstall      installs plugins; append `!` to update or just :PluginUpdate
@@ -330,9 +331,9 @@
 
 
 " PluginConfigs {
-    
 
-    " SuperTab { 
+
+    " SuperTab {
         " tab completion - <ctrl+p>
         " context    ctrl+p
         " cycle      ctrl+n
@@ -427,11 +428,11 @@
             let ropevim_vim_completion=1
             " AutoImport
             "    add the name of modules you want to autoimport
-            let g:ropevim_autoimport_modules = ["os", "shutil", "sys"] 
+            let g:ropevim_autoimport_modules = ["os", "shutil", "sys"]
             "
     "}
 
-    " ExuberantCtags { 
+    " ExuberantCtags {
         """
         " VimTags
         "    to index run to following command in cwd:
@@ -487,7 +488,7 @@
     " flake8 {
         " TODO: get description
     " }
-        
+
     " syntastic {
         set statusline+=%#warningmsg#
         set statusline+=%{SyntasticStatuslineFlag()}
@@ -498,6 +499,14 @@
         let g:syntastic_check_on_open = 1
         let g:syntastic_check_on_wq = 0
     " }
+    " vim-markdown-preview {
+        """ hit <c-p> to preview view in chrome.  << very NIIICE
+        """
+        let vim_markdown_preview_toggle=1
+        " grip option
+        let vim_markdown_preview_github=1
+        let vim_markdown_preview_temp_file=0
+    "}
 
     " TODO test
     " octol/vim-cpp-enhanced-highlight ??? <<< Does Syntastick already cover this?
