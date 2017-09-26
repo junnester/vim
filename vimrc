@@ -1,16 +1,16 @@
 " MUSTDO{
     "Make CapLock == Escape
     "Key repleat rate high
-"}
+" }
 
-"TIL{
+" TIL{
     " line
     "   \ <<<   coninuation char
     " ci) - Change Inside )-parens
     " ci" - Change Inside "-quotes
     " ci} - Change Inside }-braces
     " di} - Delete Inside }-braces
-"}
+" }
 
 
 " basics {
@@ -51,25 +51,6 @@
     endif
 
 
-    " fixCopyAndPaste {
-        " paste toggle
-        noremap <F2> :set paste!<CR>
-        " skip named paste buffers.
-        set clipboard=unnamed
-    "}
-
-    " centeredSearching{
-        """
-        " n, *, # will be centered
-        " so it's easy to find the stupid thing
-        """
-        nnoremap n nzz
-        nnoremap N Nzz
-        nnoremap * *zz
-        nnoremap # #zz
-        nnoremap g* g*zz
-        nnoremap g# g#zz
-    " }
 
     " ColumnLimit(80) {
         """
@@ -127,15 +108,15 @@
         " convert spaces to tabs after writing file (to show guides again)
         autocmd! bufwritepost * set noexpandtab | retab! 4
         "
-    "}
-"}
+    " }
+" }
 
 " python {
     """
     let $PYTHONPATH='/opt/spot:/some/other/dir'
-"}
+" }
 
-"Functions {
+" Functions {
     " put functions here
 
     " function to remove trailing white space
@@ -148,10 +129,11 @@
             normal `z
         endif
     endfunction
-"}
+" }
 
-"mapping{
-
+" mapping {
+    " force close no save
+    nnoremap <leader>q :qa!<CR>
     " Bind nohl
     " Removes highlight of your last search
     " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
@@ -168,9 +150,29 @@
     " VISUAL sort
     " map sort function to 's' key
     vnoremap <Leader>s :sort<CR>
-"}
 
-"usability {
+    " fixCopyAndPaste {
+        " paste toggle
+        noremap <F2> :set paste!<CR>
+        " skip named paste buffers.
+        set clipboard=unnamed
+    " }
+
+    " centeredSearching{
+        """
+        " n, *, # will be centered
+        " so it's easy to find the stupid thing
+        """
+        nnoremap n nzz
+        nnoremap N Nzz
+        nnoremap * *zz
+        nnoremap # #zz
+        nnoremap g* g*zz
+        nnoremap g# g#zz
+    " }
+" }
+
+" usability {
     " Convenient things to have
     "
     " When switching buffers, preserve window view.
@@ -185,7 +187,7 @@
     autocmd filetype c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     autocmd filetype cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     "autocmd filetype java ... TODO
-"}
+" }
 
 
 " VundlePlugins {
@@ -311,7 +313,7 @@
         Plugin 'robbles/logstash.vim'
         " Markdown Preivew
         Plugin 'JamshedVesuna/vim-markdown-preview'
-    "}
+    " }
 
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
@@ -327,7 +329,7 @@
         "
         " see :h vundle for more details or wiki for FAQ
         " Put your non-Plugin stuff after this line
-"}
+" }
 
 
 " PluginConfigs {
@@ -352,11 +354,11 @@
             set undodir=~/.undodir/
             set undofile
         endif
-    "}
+    " }
 
     " TagBar {
         nmap <F8> :TagbarToggle<CR>
-    "}
+    " }
 
     " anyFold {
         " active for all filetypes, old on indent   see :h anyfold
@@ -371,7 +373,7 @@
         let g:fold_cycle_default_mapping = 0 "disable default mappings
         nmap <Tab><Tab> <Plug>(fold-cycle-open)
         nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
-    "}
+    " }
 
     " easyClip {
        " TODO test this... not sure we need it
@@ -382,7 +384,7 @@
        "
        " gm to add mark instead m
        nnoremap gm m
-    "}
+    " }
 
     " repeatVim {}
 
@@ -409,7 +411,7 @@
        " visually arrage for files smaller than 1 MB
        "let g:csv_autocmd_arrange_size = 1024*1024
        "
-    "}
+    " }
 
     " ropevim {
         """
@@ -430,7 +432,7 @@
             "    add the name of modules you want to autoimport
             let g:ropevim_autoimport_modules = ["os", "shutil", "sys"]
             "
-    "}
+    " }
 
     " ExuberantCtags {
         """
@@ -442,9 +444,9 @@
         "
         "    this places the tags file in the .git folder
         """
-    "}
+    " }
 
-    "Airline status bar themes {
+    " Airline status bar themes {
         """
         " https://github.com/vim-airline/vim-airline/wiki/Screenshots
         " deleted sym link:
@@ -470,7 +472,7 @@
         let g:airline_solarized_dark_inactive_border = 1
         let g:airline_theme='ubaryd'
         "
-    "}
+    " }
 
     " AutoPep8 {
         " keyboard shortcut Autopep8
@@ -506,7 +508,7 @@
         " grip option
         let vim_markdown_preview_github=1
         let vim_markdown_preview_temp_file=0
-    "}
+    " }
 
     " TODO test
     " octol/vim-cpp-enhanced-highlight ??? <<< Does Syntastick already cover this?
@@ -530,4 +532,4 @@
     " some vimrc links
     " https://github.com/mscoutermarsh/dotfiles/blob/master/vimrc
     " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
-"}
+" }
