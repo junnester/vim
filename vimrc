@@ -1,15 +1,18 @@
 " MUSTDO{
     "Make CapLock == Escape
     "Key repleat rate high
+    "Do vimtutor: last at 4.1
 " }
 
 " TIL{
-    " line
+    "
+    " de - delete till end.
+    " ce - change word: deletes to end and sets insert
+    " line line line line
     "   \ <<<   coninuation char
     " ci) - Change Inside )-parens
     " ci" - Change Inside "-quotes
     " ci} - Change Inside }-braces
-    " di} - Delete Inside }-braces
 " }
 
 
@@ -51,6 +54,25 @@
     endif
 
 
+    " fixCopyAndPaste {
+        " paste toggle
+        noremap <F2> :set paste!<CR>
+        " skip named paste buffers.
+        set clipboard=unnamed
+    "}
+
+    " centeredSearching{
+        """ 
+        " n, *, # will be centered 
+        " so it's easy to find the stupid thing
+        """
+        nnoremap n nzz
+        nnoremap N Nzz
+        nnoremap * *zz
+        nnoremap # #zz
+        nnoremap g* g*zz
+        nnoremap g# g#zz
+    " }
 
     " ColumnLimit(80) {
         """
@@ -151,28 +173,7 @@
     " map sort function to 's' key
     vnoremap <Leader>s :sort<CR>
 
-    " fixCopyAndPaste {
-        " paste toggle
-        noremap <F2> :set paste!<CR>
-        " skip named paste buffers.
-        set clipboard=unnamed
-    " }
-
-    " centeredSearching{
-        """
-        " n, *, # will be centered
-        " so it's easy to find the stupid thing
-        """
-        nnoremap n nzz
-        nnoremap N Nzz
-        nnoremap * *zz
-        nnoremap # #zz
-        nnoremap g* g*zz
-        nnoremap g# g#zz
-    " }
-" }
-
-" usability {
+"usability {
     " Convenient things to have
     "
     " When switching buffers, preserve window view.
@@ -183,11 +184,11 @@
     endif
 
     " for compiling only 1 file mash F10
-    autocmd filetype python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
-    autocmd filetype c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-    autocmd filetype cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-    "autocmd filetype java ... TODO
-" }
+    autocmd FileType python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
+    autocmd FileType c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+    autocmd FileType cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+    "autocmd FileType java ... TODO
+"}
 
 
 " VundlePlugins {
@@ -287,6 +288,9 @@
         "
         "==== Utilities and Tools =======================
         "
+        " vim_markdown_composer - uses Rust
+        Plugin 'euclio/vim-markdown-composer'
+        "
         " Repeat vim - make . work better
         Plugin 'tpope/vim-repeat'
         "
@@ -311,8 +315,6 @@
         "
         " Logstash syntax highlighing
         Plugin 'robbles/logstash.vim'
-        " Markdown Preivew
-        Plugin 'JamshedVesuna/vim-markdown-preview'
     " }
 
     " All of your Plugins must be added before the following line
@@ -364,7 +366,7 @@
         " active for all filetypes, old on indent   see :h anyfold
         " fold for everything
         "let g:anyfold_activate=1
-        autocmd filetype python,c,cpp,java let b:anyfold_activate=1
+        autocmd FileType python,c,cpp,java let b:anyfold_activate=1
         "autocmd filetype python,c,cpp,java,vim let b:anyfold_activate=1
     " }
 
@@ -501,13 +503,11 @@
         let g:syntastic_check_on_open = 1
         let g:syntastic_check_on_wq = 0
     " }
-    " vim-markdown-preview {
-        """ hit <c-p> to preview view in chrome.  << very NIIICE
-        """
-        let vim_markdown_preview_toggle=1
-        " grip option
-        let vim_markdown_preview_github=1
-        let vim_markdown_preview_temp_file=0
+    "
+    " vim_markdown_composer {
+        " install rust:
+        " then in plugin directory
+        "   cargo build --release --no-default-features --features json-rpc
     " }
 
     " TODO test
