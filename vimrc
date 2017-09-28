@@ -1,16 +1,19 @@
 " MUSTDO{
     "Make CapLock == Escape
     "Key repleat rate high
-"}
+    "Do vimtutor: last at 4.1
+" }
 
-"TIL{
-    " line
+" TIL{
+    "
+    " de - delete till end.
+    " ce - change word: deletes to end and sets insert
+    " line line line line
     "   \ <<<   coninuation char
     " ci) - Change Inside )-parens
     " ci" - Change Inside "-quotes
     " ci} - Change Inside }-braces
-    " di} - Delete Inside }-braces
-"}
+" }
 
 
 " basics {
@@ -27,7 +30,6 @@
     " Remove trailing whitespace on save 'w:'
     autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
     autocmd VimResized * exe "normal! \<c-w>="
-    "makes 
     syntax on
     " search highlight
     set hlsearch
@@ -46,7 +48,7 @@
     filetype plugin indent on
     " stay 10 lines from the ends
     set scrolloff=10
-    " Diff Ignore Whitespace 
+    " Diff Ignore Whitespace
     if &diff
         set diffopt+=iwhite  " ignore white space
     endif
@@ -73,9 +75,9 @@
     " }
 
     " ColumnLimit(80) {
-        """ 
+        """
         " OldFart rule to stay under 80 columnss.
-        " I like to keeps everyting in view 
+        " I like to keeps everyting in view
         " and as a side effect, funcions / methods tend to be smaller
         """
         if v:version >= 703
@@ -90,7 +92,7 @@
             au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
         endif
     " }
-    
+
     " set_utf-8_encoding {
         if has("multi_byte")
             if &termencoding == ""
@@ -106,7 +108,7 @@
     " tabs {
         " TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
         " elimiate tab conversion for non python files
-        
+
         " use 4 spaces for tabs
         "   tabstop : tabs == number of spaces
         "   softtabstop: tabs == number of spaces while editing
@@ -134,9 +136,9 @@
 " python {
     """
     let $PYTHONPATH='/opt/spot:/some/other/dir'
-"}
+" }
 
-"Functions {
+" Functions {
     " put functions here
 
     " function to remove trailing white space
@@ -149,10 +151,11 @@
             normal `z
         endif
     endfunction
-"}
+" }
 
-"mapping{
-
+" mapping {
+    " force close no save
+    nnoremap <leader>q :qa!<CR>
     " Bind nohl
     " Removes highlight of your last search
     " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
@@ -172,7 +175,7 @@
 "}
 
 "usability {
-    " Convenient things to have 
+    " Convenient things to have
     "
     " When switching buffers, preserve window view.
     if v:version >= 700
@@ -240,7 +243,7 @@
         "  TODO setup
         Plugin 'rhysd/vim-clang-format'
         "
-        " C++ vim.A - E.g. if you are editing foo.c 
+        " C++ vim.A - E.g. if you are editing foo.c
         "     and need to edit foo.h simply execute :A
         "     and you will be editting foo.h, to switch back to foo.c execute :A again.
         Plugin 'vim-scripts/a.vim'
@@ -286,6 +289,9 @@
         "
         "==== Utilities and Tools =======================
         "
+        " vim_markdown_composer - uses Rust
+        Plugin 'euclio/vim-markdown-composer'
+        "
         " Repeat vim - make . work better
         Plugin 'tpope/vim-repeat'
         "
@@ -310,14 +316,14 @@
         "
         " Logstash syntax highlighing
         Plugin 'robbles/logstash.vim'
-    "}
-    
+    " }
+
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
     filetype plugin indent on    " required
     " To ignore plugin indent changes, instead use:
     "filetype plugin on
-    
+
     " Brief help
         " :PluginList         lists configured plugins
         " :PluginInstall      installs plugins; append `!` to update or just :PluginUpdate
@@ -326,13 +332,13 @@
         "
         " see :h vundle for more details or wiki for FAQ
         " Put your non-Plugin stuff after this line
-"}
+" }
 
 
 " PluginConfigs {
-    
 
-    " SuperTab { 
+
+    " SuperTab {
         " tab completion - <ctrl+p>
         " context    ctrl+p
         " cycle      ctrl+n
@@ -351,11 +357,11 @@
             set undodir=~/.undodir/
             set undofile
         endif
-    "}
+    " }
 
     " TagBar {
         nmap <F8> :TagbarToggle<CR>
-    "}
+    " }
 
     " anyFold {
         " active for all filetypes, old on indent   see :h anyfold
@@ -370,7 +376,7 @@
         let g:fold_cycle_default_mapping = 0 "disable default mappings
         nmap <Tab><Tab> <Plug>(fold-cycle-open)
         nmap <S-Tab><S-Tab> <Plug>(fold-cycle-close)"
-    "}
+    " }
 
     " easyClip {
        " TODO test this... not sure we need it
@@ -381,7 +387,7 @@
        "
        " gm to add mark instead m
        nnoremap gm m
-    "}
+    " }
 
     " repeatVim {}
 
@@ -408,7 +414,7 @@
        " visually arrage for files smaller than 1 MB
        "let g:csv_autocmd_arrange_size = 1024*1024
        "
-    "}
+    " }
 
     " ropevim {
         """
@@ -427,11 +433,11 @@
             let ropevim_vim_completion=1
             " AutoImport
             "    add the name of modules you want to autoimport
-            let g:ropevim_autoimport_modules = ["os", "shutil", "sys"] 
+            let g:ropevim_autoimport_modules = ["os", "shutil", "sys"]
             "
-    "}
+    " }
 
-    " ExuberantCtags { 
+    " ExuberantCtags {
         """
         " VimTags
         "    to index run to following command in cwd:
@@ -441,9 +447,9 @@
         "
         "    this places the tags file in the .git folder
         """
-    "}
+    " }
 
-    "Airline status bar themes {
+    " Airline status bar themes {
         """
         " https://github.com/vim-airline/vim-airline/wiki/Screenshots
         " deleted sym link:
@@ -469,7 +475,7 @@
         let g:airline_solarized_dark_inactive_border = 1
         let g:airline_theme='ubaryd'
         "
-    "}
+    " }
 
     " AutoPep8 {
         " keyboard shortcut Autopep8
@@ -487,7 +493,7 @@
     " flake8 {
         " TODO: get description
     " }
-        
+
     " syntastic {
         set statusline+=%#warningmsg#
         set statusline+=%{SyntasticStatuslineFlag()}
@@ -497,6 +503,12 @@
         let g:syntastic_auto_loc_list = 0  " shows bottom list?
         let g:syntastic_check_on_open = 1
         let g:syntastic_check_on_wq = 0
+    " }
+    "
+    " vim_markdown_composer {
+        " install rust:
+        " then in plugin directory
+        "   cargo build --release --no-default-features --features json-rpc
     " }
 
     " TODO test
@@ -521,4 +533,4 @@
     " some vimrc links
     " https://github.com/mscoutermarsh/dotfiles/blob/master/vimrc
     " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
-"}
+" }
