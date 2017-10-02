@@ -1,10 +1,10 @@
-" MUSTDO{
+" MUSTDO {
     "Make CapLock == Escape
     "Key repleat rate high
     "Do vimtutor: last at 4.1
 " }
 
-" TIL{
+" TIL {
     "
     " de - delete till end.
     " ce - change word: deletes to end and sets insert
@@ -20,11 +20,12 @@
     " Rebind <Leader> key
     " easy access
     let mapleader = ","
+
     " syntax colors
     colorscheme Tomorrow-Night-Eighties "dark gray bg
     "enable mouse... a small kitten will die when everytime the mouse is used
     "set mouse=a
-    "
+
     " Automatic reloading of .vimrc
     autocmd! bufwritepost .vimrc source %
     " Remove trailing whitespace on save 'w:'
@@ -37,33 +38,40 @@
     set nowrap
     " required
     set nocompatible
+
     " line numbers
     set number
     if v:version >= 703
         set relativenumber
     endif
+
     " required vundle, csv vim, p
     filetype off
+
     " *required for pyflakes, vundle
     filetype plugin indent on
+
     " stay 10 lines from the ends
     set scrolloff=10
-    " Diff Ignore Whitespace
-    if &diff
-        set diffopt+=iwhite  " ignore white space
-    endif
 
+    " VimDiff
+    if &diff
+        " Ignore Whitespace
+        set diffopt+=iwhite  " ignore white space
+        " Always use vertical diffs
+        set diffopt+=vertical
+    endif
 
     " fixCopyAndPaste {
         " paste toggle
         noremap <F2> :set paste!<CR>
         " skip named paste buffers.
         set clipboard=unnamed
-    "}
+    " }
 
     " centeredSearching{
-        """ 
-        " n, *, # will be centered 
+        """
+        " n, *, # will be centered
         " so it's easy to find the stupid thing
         """
         nnoremap n nzz
@@ -130,8 +138,8 @@
         " convert spaces to tabs after writing file (to show guides again)
         autocmd! bufwritepost * set noexpandtab | retab! 4
         "
-    "}
-"}
+    " }
+" }
 
 " python {
     """
@@ -172,7 +180,6 @@
     " VISUAL sort
     " map sort function to 's' key
     vnoremap <Leader>s :sort<CR>
-"}
 
 "usability {
     " Convenient things to have
@@ -207,10 +214,12 @@
         Plugin 'tpope/vim-fugitive'
 
         "==== JAVA section ==============================
-        " for Java: ultisnips are java / python snippets
-        "    see "https://github.com/SirVer/ultisnips
-        "    uses <tab> by default to activate
-        Plugin 'SirVer/ultisnips.git'
+        if v:version >= 703
+            " for Java: ultisnips are java / python snippets
+            "    see "https://github.com/SirVer/ultisnips
+            "    uses <tab> by default to activate
+            Plugin 'SirVer/ultisnips.git'
+        endif
         "
         " for Java: autocopmlete code
         "    https://github.com/artur-shaik/vim-javacomplete2
@@ -484,10 +493,12 @@
 
     " ultisnips{
     "  help UltiSnips
-        " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
-        let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab>
-        let g:UltiSnipsJumpForwardTrigger="<c-b>"
-        let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+        if v:version >= 703
+            " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
+            let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab>
+            let g:UltiSnipsJumpForwardTrigger="<c-b>"
+            let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+        endif
     " }
 
     " flake8 {
