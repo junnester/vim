@@ -5,7 +5,7 @@
 " }
 
 " TIL {
-    "
+    " :h quickref -- vim quick reference 
     " de - delete till end.
     " ce - change word: deletes to end and sets insert
     " line line line line
@@ -300,6 +300,8 @@
         "
         " vim_markdown_composer - uses Rust
         Plugin 'euclio/vim-markdown-composer'
+        " riv.vim rST reStructuredText
+        Plugin 'Rykka/riv.vim'  
         "
         " Repeat vim - make . work better
         Plugin 'tpope/vim-repeat'
@@ -325,6 +327,8 @@
         "
         " Logstash syntax highlighing
         Plugin 'robbles/logstash.vim'
+        " nerdtree
+        Plugin 'scrooloose/nerdtree'
     " }
 
     " All of your Plugins must be added before the following line
@@ -520,6 +524,23 @@
         " install rust:
         " then in plugin directory
         "   cargo build --release --no-default-features --features json-rpc
+    " }
+    "
+    " riv.vim {
+        " You can add projects with command  ` g:riv_projects: `
+        "     see http://www.youtube.com/watch?v=sgSz2J1NVJ8
+        "
+        "let proj1 = { 'path': '~/Dropbox/rst',}
+        "let g:riv_projects = [proj1]
+        "
+        " More options see the :RivInstruction
+    " }
+    "
+    " nerdtree {
+        " open a NERDTree automatically when vim starts opening a directory
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+        map <C-e> :NERDTreeToggle<CR>
     " }
 
     " TODO test
