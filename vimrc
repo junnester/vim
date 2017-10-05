@@ -538,13 +538,13 @@
     "
     " nerdtree {
         " open a NERDTree automatically when vim starts opening a directory
-        " does not behave
-        "autocmd StdinReadPre * let s:std_in=1
-        "autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
         " ctrl-e to open tree 
         map <C-e> :NERDTreeToggle<CR>
+        " tab thing does not behave
         " open files in new tab
-        let NERDTreeMapOpenInTab='<ENTER>'  
+        "let NERDTreeMapOpenInTab='<ENTER>'  
     " }
 
     " TODO test
