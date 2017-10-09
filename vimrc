@@ -5,14 +5,13 @@
 " }
 
 " TIL {
+    " vim scp://remoteuser@server.tld/relative/path/to/document
+    "
     " :h quickref -- vim quick reference 
     " de - delete till end.
     " ce - change word: deletes to end and sets insert
     " line line line line
     "   \ <<<   coninuation char
-    " ci) - Change Inside )-parens
-    " ci" - Change Inside "-quotes
-    " ci} - Change Inside }-braces
 " }
 
 
@@ -176,6 +175,8 @@
     nnoremap <leader>n :setlocal number!<cr>
     " Toggle relative line numbers
     nnoremap <leader>r :setlocal relativenumber!<cr>
+    " set conf file to logstash syntax
+    nnoremap <leader>r :set syn=logstash<cr>
 
     " VISUAL sort
     " map sort function to 's' key
@@ -568,4 +569,9 @@
     " some vimrc links
     " https://github.com/mscoutermarsh/dotfiles/blob/master/vimrc
     " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
+    "
+    " change word in
+    " ci) - Change Inside )-parens
+    " ci" - Change Inside "-quotes
+    " ci} - Change Inside }-braces
 " }
