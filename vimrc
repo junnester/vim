@@ -312,15 +312,16 @@
         " CSV Editing
         Plugin 'chrisbra/csv.vim'
         "
-        " Airline status bar
-        Plugin 'vim-airline/vim-airline'
-        " Airline themes
-        Plugin 'vim-airline/vim-airline-themes'
-        "
-        " PowerLine status -- not sure how to use. and too heavy
-        "Plugin 'powerline/powerline'
-        " PowerLine fonts for use in airline
-        Plugin 'powerline/fonts'
+        if v:version >= 703
+            " Airline status bar
+            Plugin 'vim-airline/vim-airline'
+            " Airline themes
+            Plugin 'vim-airline/vim-airline-themes'
+            " PowerLine status -- not sure how to use. and too heavy
+            "Plugin 'powerline/powerline'
+            " PowerLine fonts for use in airline
+            Plugin 'powerline/fonts'
+        endif
         "
         " AutoFormat Python code
         Plugin 'tell-k/vim-autopep8'
@@ -474,20 +475,21 @@
         "     sudo fc-cache -vf
         "     sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
         """
-        " Enable power line fonts
-        let g:airline_powerline_fonts=1
+        if v:version >= 703
+            " Enable power line fonts
+            let g:airline_powerline_fonts=1
 
-        if !exists('g:airline_symbols')
-            let g:airline_symbols = {}
+            if !exists('g:airline_symbols')
+                let g:airline_symbols = {}
+            endif
+
+            let g:airline_symbols.space = "\ua0"
+            "
+            " set AirlineTheme
+            "let g:airline_theme='tomorrow'
+            let g:airline_solarized_dark_inactive_border = 1
+            let g:airline_theme='ubaryd'
         endif
-
-        let g:airline_symbols.space = "\ua0"
-        "
-        " set AirlineTheme
-        "let g:airline_theme='tomorrow'
-        let g:airline_solarized_dark_inactive_border = 1
-        let g:airline_theme='ubaryd'
-        "
     " }
 
     " AutoPep8 {
