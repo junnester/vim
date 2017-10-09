@@ -176,7 +176,7 @@
     " Toggle relative line numbers
     nnoremap <leader>r :setlocal relativenumber!<cr>
     " set conf file to logstash syntax
-    nnoremap <leader>r :set syn=logstash<cr>
+    nnoremap <leader>l :set syn=logstash<cr>
 
     " VISUAL sort
     " map sort function to 's' key
