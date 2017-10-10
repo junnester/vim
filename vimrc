@@ -88,16 +88,18 @@
         " I like to keeps everyting in view
         " and as a side effect, funcions / methods tend to be smaller
         """
-        if v:version >= 703
-            " if vim version 7.3 or more
-            " draws a vertical line at column 76
-            set colorcolumn=76
-        else
-            " highlights lines after column 76
-            syntax match Search /\%<81v.\%>77v/
-            syntax match ErrorMsg /\%>80v.\+/
-            au BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
-            au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
+        if (&ft!='') " filetype not blank like logs
+            if v:version >= 703
+                " if vim version 7.3 or more
+                " draws a vertical line at column 76
+                set colorcolumn=76
+            else
+                " highlights lines after column 76
+                syntax match Search /\%<81v.\%>77v/
+                syntax match ErrorMsg /\%>80v.\+/
+                au BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
+                au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
+            endif
         endif
     " }
 
@@ -334,7 +336,7 @@
 
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
-    filetype plugin indent on    " required
+    filetype plugin indent on    " required TODO: find what this does?
     " To ignore plugin indent changes, instead use:
     "filetype plugin on
 
