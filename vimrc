@@ -5,6 +5,7 @@
 " }
 
 " TIL {
+    " :81,91y<enter>  // copy from line to line range
     " vim scp://remoteuser@server.tld/relative/path/to/document
     "
     " :h quickref -- vim quick reference 
@@ -113,29 +114,24 @@
     " }
 
     " tabs {
-        " TODO: needs work.  see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
-        " elimiate tab conversion for non python files
-
+        " see http://vim.wikia.com/wiki/Converting_tabs_to_spaces
         " use 4 spaces for tabs
         "   tabstop : tabs == number of spaces
         "   softtabstop: tabs == number of spaces while editing
         "                        backspace will tread 4 spaces as 1 tab
         "   shiftwidth: number of space to move when hitting tab-key
         set tabstop=4 softtabstop=4 shiftwidth=4
-
-        " display indentation guides.. looks like  |   |    |
-        "set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
-        set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:×
-
+        
+        " this replaces invisible chars
+		"   display indentation guides.. looks like  |   |    |
+        set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:␣,eol:¬
         " convert spaces to tabs when reading file
-        "     _i think_ this causes errors when displaying readonly files
-        "autocmd! bufreadpost * set noexpandtab | retab! 4
-
+        " code only this will cause errors when reading readonly files
+        autocmd! bufreadpost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4  
         " convert tabs to spaces before writing file
-        autocmd! bufwritepre * set expandtab | retab! 4
-
+        autocmd! bufwritepre *.py,*.c,*.cpp,*.java,*.conf set expandtab | retab! 4
         " convert spaces to tabs after writing file (to show guides again)
-        autocmd! bufwritepost * set noexpandtab | retab! 4
+        autocmd! bufwritepost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4
         "
     " }
 " }
