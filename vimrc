@@ -5,14 +5,13 @@
 " }
 
 " TIL {
+	" registers -- http://www.brianstorti.com/vim-registers/
+    " remote vimdiff a file
+	"     vimdiff /path/to/file scp://remotehost//path/to/file
     " :81,91y<enter>  // copy from line to line range
     " vim scp://remoteuser@server.tld/relative/path/to/document
     "
-    " :h quickref -- vim quick reference 
-    " de - delete till end.
-    " ce - change word: deletes to end and sets insert
-    " line line line line
-    "   \ <<<   coninuation char
+    " :h quickref -- vim quick reference
 " }
 
 
@@ -123,13 +122,13 @@
         "                        backspace will tread 4 spaces as 1 tab
         "   shiftwidth: number of space to move when hitting tab-key
         set tabstop=4 softtabstop=4 shiftwidth=4
-        
+
         " this replaces invisible chars
 		"   display indentation guides.. looks like  |   |    |
         set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:␣,eol:¬
         " convert spaces to tabs when reading file
         " code only this will cause errors when reading readonly files
-        autocmd! bufreadpost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4  
+        autocmd! bufreadpost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4
         " convert tabs to spaces before writing file
         autocmd! bufwritepre *.py,*.c,*.cpp,*.java,*.conf set expandtab | retab! 4
         " convert spaces to tabs after writing file (to show guides again)
@@ -161,12 +160,16 @@
 " mapping {
     " force close no save
     nnoremap <leader>q :qa!<CR>
+
     " Bind nohl
     " Removes highlight of your last search
     " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
     noremap <C-n> :nohl<CR>
     vnoremap <C-n> :nohl<CR>
     inoremap <C-n> :nohl<CR>
+
+	" visual serach - searchs for thing highlighted
+	vnoremap // y/<C-R>"<CR>"
 
 
     " Toggle line numbers
@@ -300,7 +303,7 @@
         " vim_markdown_composer - uses Rust
         Plugin 'euclio/vim-markdown-composer'
         " riv.vim rST reStructuredText
-        Plugin 'Rykka/riv.vim'  
+        Plugin 'Rykka/riv.vim'
         "
         " Repeat vim - make . work better
         Plugin 'tpope/vim-repeat'
@@ -541,11 +544,11 @@
         " open a NERDTree automatically when vim starts opening a directory
         autocmd StdinReadPre * let s:std_in=1
         autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-        " ctrl-e to open tree 
+        " ctrl-e to open tree
         map <C-e> :NERDTreeToggle<CR>
         " tab thing does not behave
         " open files in new tab
-        "let NERDTreeMapOpenInTab='<ENTER>'  
+        "let NERDTreeMapOpenInTab='<ENTER>'
     " }
 
     " TODO test
@@ -575,4 +578,8 @@
     " ci) - Change Inside )-parens
     " ci" - Change Inside "-quotes
     " ci} - Change Inside }-braces
+    " de - delete till end.
+    " ce - change word: deletes to end and sets insert
+    " line line line line
+    "   \ <<<   coninuation char
 " }
