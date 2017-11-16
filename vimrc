@@ -35,6 +35,8 @@
     set hlsearch
     " Do not wrap lines
     set nowrap
+	" break on space not words
+	set linebreak
     " required
     set nocompatible
 
@@ -558,11 +560,11 @@
 " NOTES {
     " To change two vertically split windows to horizonally split
     "
-    " Ctrl-w t Ctrl-w K
+    "	Ctrl-w t Ctrl-w K
     "
     " Horizontally to vertically:
     "
-    " Ctrl-w t Ctrl-w H
+    "	Ctrl-w t Ctrl-w H
     "
     " Explanations:
     "
