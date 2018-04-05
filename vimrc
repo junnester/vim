@@ -385,7 +385,7 @@
         " active for all filetypes, old on indent   see :h anyfold
         " fold for everything
         "let g:anyfold_activate=1
-        autocmd FileType python,c,cpp,java let b:anyfold_activate=1
+        "autocmd FileType python,c,cpp,java let b:anyfold_activate=1
         "autocmd filetype python,c,cpp,java,vim let b:anyfold_activate=1
     " }
 
@@ -528,6 +528,7 @@
     "
     " vim_markdown_composer {
         " install rust:
+		"	# curl https://sh.rustup.rs -sSf | sh
         " then in plugin directory
         "   cargo build --release --no-default-features --features json-rpc
     " }
