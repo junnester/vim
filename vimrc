@@ -531,6 +531,10 @@
 		"	# curl https://sh.rustup.rs -sSf | sh
         " then in plugin directory
         "   cargo build --release --no-default-features --features json-rpc
+		"
+		" install the latest vim version:
+		"   requred version: is 8.0.0902 or higher
+		"   https://vi.stackexchange.com/questions/10817/how-can-i-get-a-newer-version-of-vim-on-ubuntu
     " }
     "
     " riv.vim {
