@@ -563,6 +563,18 @@
         " open files in new tab
         "let NERDTreeMapOpenInTab='<ENTER>'
     " }
+	"
+	" jedi-vim {
+	  "for vim split
+	  " This options could be "left", "right", "top", "bottom" or "winwidth".
+	  " It will decide the direction where the split open.
+	  let g:jedi#use_splits_not_buffers = "left"
+	  " example str. <pop>
+	  let g:jedi#popup_on_dot = 0
+	  " select the first item
+	  let g:jedi#popup_select_first = 0
+
+    " }
 
     " TODO test
     " octol/vim-cpp-enhanced-highlight ??? <<< Does Syntastick already cover this?
