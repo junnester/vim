@@ -188,6 +188,13 @@
 "usability {
     " Convenient things to have
     "
+	" When creating new *.py files add this to the top
+	autocmd BufNewfile *.py call append(0,'#! /usr/bin/env python')
+	autocmd BufNewfile *.py call append(1,'# -*- coding: utf-8 -*-')
+    "
+	" When creating new *.sh files add this to the top
+	autocmd BufNewfile *.sh call append(0,'#! /bin/bash')
+    "
     " When switching buffers, preserve window view.
     if v:version >= 700
         "vim 700 and up
@@ -390,6 +397,10 @@
     " }
 
     " cycleFolding {
+	"   usage:
+	"       tab tab : open
+	"        tab+shift tab+shift : close
+	"
         set modifiable
         let g:fold_cycle_default_mapping = 0 "disable default mappings
         nmap <Tab><Tab> <Plug>(fold-cycle-open)
