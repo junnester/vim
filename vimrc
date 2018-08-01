@@ -27,6 +27,9 @@
 
     " Automatic reloading of .vimrc
     autocmd! bufwritepost .vimrc source %
+	" Auto Save files when focus lost.
+	"   update will only save changed files
+	autocmd FocusLost * silent! update
     " Remove trailing whitespace on save 'w:'
     autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
     autocmd VimResized * exe "normal! \<c-w>="
@@ -98,8 +101,8 @@
                 " highlights lines after column 76
                 syntax match Search /\%<81v.\%>77v/
                 syntax match ErrorMsg /\%>80v.\+/
-                au BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
-                au BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
+                autocmd BufRead,BufNewFile * syntax match Search /\%<81v.\%>77v/
+                autocmd BufRead,BufNewFile * syntax match ErrorMsg /\%>80v.\+/
             endif
         endif
     " }
@@ -157,6 +160,36 @@
             normal `z
         endif
     endfunction
+
+    " Swaps windows
+    "     https://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
+    " Usage
+    "    Move to the window to mark for the swap via ctrl-w movement
+	"    Type \mw
+	"    Move to the window you want to swap
+	"    Type \pw
+    function! MarkWindowSwap()
+        let g:markedWinNum = winnr()
+    endfunction
+    function! DoWindowSwap()
+        "Mark destination
+        let curNum = winnr()
+        let curBuf = bufnr( "%" )
+        exe g:markedWinNum . "wincmd w"
+        "Switch to source and shuffle dest->source
+        let markedBuf = bufnr( "%" )
+        "Hide and open so that we aren't prompted and keep history
+        exe 'hide buf' curBuf
+        "Switch to dest and shuffle source->dest
+        exe curNum . "wincmd w"
+        "Hide and open so that we aren't prompted and keep history
+        exe 'hide buf' markedBuf
+    endfunction
+	" wc - Window Cut
+    nmap <silent> <leader>wc :call MarkWindowSwap()<CR>
+	" wp - Window Cut
+    nmap <silent> <leader>wp :call DoWindowSwap()<CR>
+
 " }
 
 " mapping {
@@ -194,6 +227,8 @@
     "
 	" When creating new *.sh files add this to the top
 	autocmd BufNewfile *.sh call append(0,'#! /bin/bash')
+	autocmd BufNewfile *.sh call append(1,'# logging _this_ script to syslog')
+	autocmd BufNewfile *.sh call append(2,'exec 1> >(logger -s -t $(basename $0)) 2>&1')
     "
     " When switching buffers, preserve window view.
     if v:version >= 700
@@ -204,6 +239,7 @@
 
     " for compiling only 1 file mash F10
     autocmd FileType python nnoremap <F10> :w <bar> exec '!python '.shellescape('%')<CR>
+    autocmd FileType sh     nnoremap <F10> :w <bar> exec '!bash -c ./'.shellescape('%')<CR>
     autocmd FileType c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     autocmd FileType cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     "autocmd FileType java ... TODO
@@ -225,12 +261,12 @@
         Plugin 'tpope/vim-fugitive'
 
         "==== JAVA section ==============================
-        if v:version >= 703
-            " for Java: ultisnips are java / python snippets
-            "    see "https://github.com/SirVer/ultisnips
-            "    uses <tab> by default to activate
-            Plugin 'SirVer/ultisnips.git'
-        endif
+        "if v:version >= 703
+        "    " for Java: ultisnips are java / python snippets
+        "    "    see "https://github.com/SirVer/ultisnips
+        "    "    uses <tab> by default to activate
+        "    Plugin 'SirVer/ultisnips.git'
+        "endif
         "
         " for Java: autocopmlete code
         "    https://github.com/artur-shaik/vim-javacomplete2
@@ -392,8 +428,8 @@
         " active for all filetypes, old on indent   see :h anyfold
         " fold for everything
         "let g:anyfold_activate=1
+		" fold only python c cpp java
         autocmd FileType python,c,cpp,java let b:anyfold_activate=1
-        "autocmd filetype python,c,cpp,java,vim let b:anyfold_activate=1
     " }
 
     " cycleFolding {
@@ -514,12 +550,12 @@
 
     " ultisnips{
     "  help UltiSnips
-        if v:version >= 703
-            " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
-            let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab>
-            let g:UltiSnipsJumpForwardTrigger="<c-b>"
-            let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-        endif
+    "    if v:version >= 703
+    "        " Trigger configuration. Do not use <tab> if you use YouCompleteMe, fold-cycle
+    "        let g:UltiSnipsExpandTrigger="<c-~>" " default is <tab>
+    "        let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    "        let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+    "    endif
     " }
 
     " flake8 {
@@ -570,9 +606,9 @@
 	  " It will decide the direction where the split open.
 	  let g:jedi#use_splits_not_buffers = "left"
 	  " example str. <pop>
-	  let g:jedi#popup_on_dot = 0
+	  "let g:jedi#popup_on_dot = 0
 	  " select the first item
-	  let g:jedi#popup_select_first = 0
+	  "let g:jedi#popup_select_first = 0
 
     " }
 
@@ -609,16 +645,16 @@
     "   \ <<<   coninuation char
 	"
 	"
-    " ~     Toggle case of the character under the cursor, 
+    " ~     Toggle case of the character under the cursor,
     "       or all visually-selected characters.
     " 3~    Toggle case of the next three characters.
     " g~3w  Toggle case of the next three words.
     " g~iw  Toggle case of the current word (inner word – cursor anywhere in word).
     " g~$   Toggle case of all characters to end of line.
     " g~~   Toggle case of the current line (same as V~).
-    "       The above uses ~ to toggle case. In each example, 
-    "       you can replace ~ with u to convert to lowercase, 
-    "       or with U to convert to uppercase. 
+    "       The above uses ~ to toggle case. In each example,
+    "       you can replace ~ with u to convert to lowercase,
+    "       or with U to convert to uppercase.
     " For example:
     " U      Uppercase the visually-selected text.
     "        First press v or V then move to select text.
