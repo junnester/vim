@@ -66,6 +66,13 @@
         set diffopt+=vertical
     endif
 
+    " Copy Paste with ctrl+c and ctrl+v {
+        vmap <C-c> "+yi
+        vmap <C-x> "+c
+        vmap <C-v> c<ESC>"+p
+        imap <C-v> <C-r><C-o>+
+    " }
+
     " fixCopyAndPaste {
         " paste toggle
         noremap <F2> :set paste!<CR>
