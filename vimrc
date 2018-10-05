@@ -55,13 +55,6 @@
     " *required for pyflakes, vundle
     filetype plugin indent on
 
-	if did_filetype()
-		finish
-	endif
-	if getline(1) =~# '^#!.*logstash.*$'
-        set syn=logstash<cr>
-    endif
-
     " stay 10 lines from the ends
     set scrolloff=10
 
