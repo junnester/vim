@@ -55,13 +55,20 @@
     " *required for pyflakes, vundle
     filetype plugin indent on
 
+	if did_filetype()
+		finish
+	endif
+	if getline(1) =~# '^#!.*logstash.*$'
+        set syn=logstash<cr>
+    endif
+
     " stay 10 lines from the ends
     set scrolloff=10
 
     " VimDiff
     if &diff
-        " Ignore Whitespace
-        set diffopt+=iwhite  " ignore white space
+        " Ignore whitespace
+		"set diffopt+=iwhite  " ignore white space
         " Always use vertical diffs
         set diffopt+=vertical
     endif
@@ -202,28 +209,31 @@
 " mapping {
     " force close no save
     nnoremap <leader>q :qa!<CR>
+	" remove white space at end of lines
+	nnoremap <leader>sp :%s/\s\+$//e<CR>
 
     " Bind nohl
     " Removes highlight of your last search
-    " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
+    " ``<C>`` stands for ``CTRL`` and therefore
+	"   ``<C-n>`` stands for ``CTRL+n``
     noremap <C-n> :nohl<CR>
     vnoremap <C-n> :nohl<CR>
     inoremap <C-n> :nohl<CR>
 
-	" visual serach - searchs for thing highlighted
+	" visual search - searchs for thing highlighted
 	vnoremap // y/<C-R>"<CR>"
-
 
     " Toggle line numbers
     nnoremap <leader>n :setlocal number!<cr>
     " Toggle relative line numbers
     nnoremap <leader>r :setlocal relativenumber!<cr>
-    " set conf file to logstash syntax
+
+	" set conf file to logstash syntax
     nnoremap <leader>l :set syn=logstash<cr>
 
     " VISUAL sort
     " map sort function to 's' key
-    vnoremap <Leader>s :sort<CR>
+    vnoremap <leader>s :sort<CR>
 
 "usability {
     " Convenient things to have
@@ -316,7 +326,7 @@
         Plugin 'vim-syntastic/syntastic'
         "
         " Python auto complete
-        Plugin 'davidhalter/jedi-vim'
+        "Plugin 'davidhalter/jedi-vim'
         "
         " Python Error highlighting - linter -- NOTE this is merged in Syntastic
         "Plugin 'kevinw/pyflakes-vim'
@@ -609,9 +619,9 @@
 	"
 	" jedi-vim {
 	  "for vim split
-	  " This options could be "left", "right", "top", "bottom" or "winwidth".
+	  " This options could be 'left', 'right', 'top', 'bottom' or 'winwidth'.
 	  " It will decide the direction where the split open.
-	  let g:jedi#use_splits_not_buffers = "left"
+	  "let g:jedi#use_splits_not_buffers = "left"
 	  " example str. <pop>
 	  "let g:jedi#popup_on_dot = 0
 	  " select the first item
