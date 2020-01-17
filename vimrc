@@ -5,9 +5,9 @@
 " }
 
 " TIL {
-	" registers -- http://www.brianstorti.com/vim-registers/
+    " registers -- http://www.brianstorti.com/vim-registers/
     " remote vimdiff a file
-	"     vimdiff /path/to/file scp://remotehost//path/to/file
+    "     vimdiff /path/to/file scp://remotehost//path/to/file
     " :81,91y<enter>  // copy from line to line range
     " vim scp://remoteuser@server.tld/relative/path/to/document
     "
@@ -27,9 +27,9 @@
 
     " Automatic reloading of .vimrc
     autocmd! bufwritepost .vimrc source %
-	" Auto Save files when focus lost.
-	"   update will only save changed files
-	autocmd FocusLost * silent! update
+    " Auto Save files when focus lost.
+    "   update will only save changed files
+    autocmd FocusLost * silent! update
     " Remove trailing whitespace on save 'w:'
     autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
     autocmd VimResized * exe "normal! \<c-w>="
@@ -38,8 +38,8 @@
     set hlsearch
     " Do not wrap lines
     set nowrap
-	" break on space not words
-	set linebreak
+    " break on space not words
+    set linebreak
     " required
     set nocompatible
 
@@ -61,7 +61,7 @@
     " VimDiff
     if &diff
         " Ignore whitespace
-		"set diffopt+=iwhite  " ignore white space
+        "set diffopt+=iwhite  " ignore white space
         " Always use vertical diffs
         set diffopt+=vertical
     endif
@@ -79,7 +79,9 @@
         " skip named paste buffers.
         set clipboard=unnamed
     " }
-
+	" search visual highlighted selected {
+	    vnoremap // y/<C-R>"<CR>
+	" }
     " centeredSearching{
         """
         " n, *, # will be centered
@@ -136,7 +138,7 @@
         set tabstop=4 softtabstop=4 shiftwidth=4
 
         " this replaces invisible chars
-		"   display indentation guides.. looks like  |   |    |
+        "   display indentation guides.. looks like  |   |    |
         set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:␣,eol:¬
         " convert spaces to tabs when reading file
         " code only this will cause errors when reading readonly files
@@ -172,9 +174,9 @@
     "     https://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
     " Usage
     "    Move to the window to mark for the swap via ctrl-w movement
-	"    Type \mw
-	"    Move to the window you want to swap
-	"    Type \pw
+    "    Type \mw
+    "    Move to the window you want to swap
+    "    Type \pw
     function! MarkWindowSwap()
         let g:markedWinNum = winnr()
     endfunction
@@ -192,9 +194,9 @@
         "Hide and open so that we aren't prompted and keep history
         exe 'hide buf' markedBuf
     endfunction
-	" wc - Window Cut
+    " wc - Window Cut
     nmap <silent> <leader>wc :call MarkWindowSwap()<CR>
-	" wp - Window Cut
+    " wp - Window Cut
     nmap <silent> <leader>wp :call DoWindowSwap()<CR>
 
 " }
@@ -202,43 +204,44 @@
 " mapping {
     " force close no save
     nnoremap <leader>q :qa!<CR>
-	" remove white space at end of lines
-	nnoremap <leader>sp :%s/\s\+$//e<CR>
+    " remove white space at end of lines
+    nnoremap <leader>sp :%s/\s\+$//e<CR>
 
     " Bind nohl
     " Removes highlight of your last search
     " ``<C>`` stands for ``CTRL`` and therefore
-	"   ``<C-n>`` stands for ``CTRL+n``
+    "   ``<C-n>`` stands for ``CTRL+n``
     noremap <C-n> :nohl<CR>
     vnoremap <C-n> :nohl<CR>
     inoremap <C-n> :nohl<CR>
 
-	" visual search - searchs for thing highlighted
-	vnoremap // y/<C-R>"<CR>"
+    " visual search - searchs for thing highlighted
+    vnoremap // y/<C-R>"<CR>"
 
     " Toggle line numbers
     nnoremap <leader>n :setlocal number!<cr>
     " Toggle relative line numbers
     nnoremap <leader>r :setlocal relativenumber!<cr>
 
-	" set conf file to logstash syntax
+    " set conf file to logstash syntax
     nnoremap <leader>l :set syn=logstash<cr>
 
     " VISUAL sort
     " map sort function to 's' key
     vnoremap <leader>s :sort<CR>
+" }
 
 "usability {
     " Convenient things to have
     "
-	" When creating new *.py files add this to the top
-	autocmd BufNewfile *.py call append(0,'#! /usr/bin/env python')
-	autocmd BufNewfile *.py call append(1,'# -*- coding: utf-8 -*-')
+    " When creating new *.py files add this to the top
+    autocmd BufNewfile *.py call append(0,'#! /usr/bin/env python')
+    autocmd BufNewfile *.py call append(1,'# -*- coding: utf-8 -*-')
     "
-	" When creating new *.sh files add this to the top
-	autocmd BufNewfile *.sh call append(0,'#! /bin/bash')
-	autocmd BufNewfile *.sh call append(1,'# logging _this_ script to syslog')
-	autocmd BufNewfile *.sh call append(2,'exec 1> >(logger -s -t $(basename $0)) 2>&1')
+    " When creating new *.sh files add this to the top
+    autocmd BufNewfile *.sh call append(0,'#! /bin/bash')
+    autocmd BufNewfile *.sh call append(1,'# logging _this_ script to syslog')
+    autocmd BufNewfile *.sh call append(2,'exec 1> >(logger -s -t $(basename $0)) 2>&1')
     "
     " When switching buffers, preserve window view.
     if v:version >= 700
@@ -253,6 +256,15 @@
     autocmd FileType c      nnoremap <F10> :w <bar> exec '!gcc    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     autocmd FileType cpp    nnoremap <F10> :w <bar> exec '!g++    '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
     "autocmd FileType java ... TODO
+
+    "
+    " Set PowerShell syntax for ps1 files
+    augroup powershell
+        au!
+        autocmd BufNewFile,BufRead *.ps1 set syntax=ps1
+        autocmd BufNewFile,BufRead *.psd1 set syntax=ps1
+        autocmd BufNewFile,BufRead *.psm1 set syntax=ps1
+    augroup END
 "}
 
 
@@ -273,7 +285,7 @@
         "==== JAVA section ==============================
         "if v:version >= 703
         "    " for Java: ultisnips are java / python snippets
-        "    "    see "https://github.com/SirVer/ultisnips
+        "    "    see https://github.com/SirVer/ultisnips
         "    "    uses <tab> by default to activate
         "    Plugin 'SirVer/ultisnips.git'
         "endif
@@ -314,8 +326,11 @@
         "     and you will be editting foo.h, to switch back to foo.c execute :A again.
         Plugin 'vim-scripts/a.vim'
         "
+        " Syntax highlighting for PowerShell
+        Plugin 'PProvost/vim-ps1'
+        "
         " === Python ===
-        " syntastic - syntax checking for lots of stuff not java
+        " syntastic - syntax checking for lots of stuff - https://vimawesome.com/plugin/syntastic
         Plugin 'vim-syntastic/syntastic'
         "
         " Python auto complete
@@ -331,7 +346,10 @@
         Plugin 'python-rope/rope'
         " Python ropevim for refactoring - needs rope
         Plugin 'python-rope/ropevim'
+		" vim-yaml linter
+		Plugin 'avakhov/vim-yaml'
         "
+		"
         "==== Project Structure stuff ===========================
         " Project - for managing projects
         "    see help project
@@ -359,6 +377,7 @@
         Plugin 'euclio/vim-markdown-composer'
         " riv.vim rST reStructuredText
         Plugin 'Rykka/riv.vim'
+        Plugin 'Rykka/InstantRst'
         "
         " Repeat vim - make . work better
         Plugin 'tpope/vim-repeat'
@@ -435,18 +454,37 @@
     " }
 
     " anyFold {
+		" folding plugin
         " active for all filetypes, old on indent   see :h anyfold
-        " fold for everything
+        " fold for everything (this is annoying - reference only)
         "let g:anyfold_activate=1
-		" fold only python c cpp java
+
+        " fold only python c cpp java
         autocmd FileType python,c,cpp,java let b:anyfold_activate=1
+        "
+        " zf#j		creates a fold from the cursor down # lines.
+        " zf/string	creates a fold from the cursor to string .
+        " zj		moves the cursor to the next fold.
+        " zk 		moves the cursor to the previous fold.
+        " zo 		opens a fold at the cursor.
+        " zO 		opens all folds at the cursor.
+        " zc 		close a fold at the cursor.
+        " zm 		increases the foldlevel by one.
+        " zM 		closes all open folds.
+        " zr 		decreases the foldlevel by one.
+        " zR 		decreases the foldlevel to zero -- all folds will be open.
+        " zd 		deletes the fold at the cursor.
+        " zE 		deletes all folds.
+        " [z 		move to start of open fold.
+        " ]z 		move to end of open fold.
+        "
     " }
 
     " cycleFolding {
-	"   usage:
-	"       tab tab : open
-	"        tab+shift tab+shift : close
-	"
+    "   usage:
+    "       tab tab : open
+    "        tab+shift tab+shift : close
+    "
         set modifiable
         let g:fold_cycle_default_mapping = 0 "disable default mappings
         nmap <Tab><Tab> <Plug>(fold-cycle-open)
@@ -518,10 +556,17 @@
         "    to index run to following command in cwd:
         "
         "    ctags -R -f ./.git/tags .
-        "        then do :set tags+=/opt/spot
+        "        then do :set tags+=/opt/edfman
         "
         "    this places the tags file in the .git folder
         """
+    " }
+    " OmniComplete {
+        """
+        " run the ctags thing above to make this work
+        " ctrl-p to match
+        " ctrl-p to match
+        " ctrl-p to match
     " }
 
     " Airline status bar themes {
@@ -609,16 +654,16 @@
         " open files in new tab
         "let NERDTreeMapOpenInTab='<ENTER>'
     " }
-	"
-	" jedi-vim {
-	  "for vim split
-	  " This options could be 'left', 'right', 'top', 'bottom' or 'winwidth'.
-	  " It will decide the direction where the split open.
-	  "let g:jedi#use_splits_not_buffers = "left"
-	  " example str. <pop>
-	  "let g:jedi#popup_on_dot = 0
-	  " select the first item
-	  "let g:jedi#popup_select_first = 0
+    "
+    " jedi-vim {
+      "for vim split
+      " This options could be 'left', 'right', 'top', 'bottom' or 'winwidth'.
+      " It will decide the direction where the split open.
+      "let g:jedi#use_splits_not_buffers = "left"
+      " example str. <pop>
+      "let g:jedi#popup_on_dot = 0
+      " select the first item
+      "let g:jedi#popup_select_first = 0
 
     " }
 
@@ -627,15 +672,57 @@
 " }
 
 " NOTES {
-    " To change two vertically split windows to horizonally split
+    " split window { -------------------------------------------------------------
+	"
+	"   Basic split window commaands
+	"     ctrl+W +/-: increase/decrease height (ex. 20<C-w>+)
+	"     ctrl+W >/<: increase/decrease width (ex. 30<C-w><)
+	"     ctrl+W _: set height (ex. 50<C-w>_)
+	"     ctrl+W |: set width (ex. 50<C-w>|)
+	"     ctrl+W =: equalize width and height of all windows
+	"     See also: :help CTRL-W
+	"
+	"   Rotating windows
+    "     To change two vertically split windows to horizonally split
+    "        ctrl-w t ctrl-w K
     "
-    "	Ctrl-w t Ctrl-w K
+    "     Horizontally to vertically:
+    "        ctrl-w t ctrl-w H
     "
-    " Horizontally to vertically:
+    "     Open vertical 10 with len char
+    "       :10sp ~/.zshrc
     "
-    "	Ctrl-w t Ctrl-w H
+    "   Resizing splits
+    "     Vim’s defaults are useful for changing split shapes:
     "
-    " Explanations:
+    "     Max out the height of the current split
+    "       ctrl + w _
+    "
+    "     Max out the width of the current split
+    "       ctrl + w |
+    "
+    "     Normalize all split sizes, which is very handy when resizing terminal
+    "       ctrl + w =
+    "
+    "     To change two vertically split windows to horizonally split
+    "       Ctrl-w t Ctrl-w K
+    "
+    "     Horizontally to vertically:
+    "       Ctrl-w t Ctrl-w H
+    "
+    "       Explanations
+    "         Ctrl-w t makes the first (topleft) window current
+    "         Ctrl-w K moves the current window to full-width at the very top
+    "         Ctrl-w H moves the current window to full-height at far left
+    "
+    " }
+    "
+    "
+    "
+    "
+    " --------------------------------------------------------------------
+    " Explanations -------------------------------------------------------
+    " --------------------------------------------------------------------
     "
     " Ctrl-w t makes the first (topleft) window current Ctrl-w K moves the current
     " window to full-width at the very top Ctrl-w H moves the current window to
@@ -653,8 +740,8 @@
     " ce - change word: deletes to end and sets insert
     " line line line line
     "   \ <<<   coninuation char
-	"
-	"
+    "
+    "
     " ~     Toggle case of the character under the cursor,
     "       or all visually-selected characters.
     " 3~    Toggle case of the next three characters.
