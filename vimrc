@@ -456,11 +456,9 @@
     " anyFold {
 		" folding plugin
         " active for all filetypes, old on indent   see :h anyfold
-        " fold for everything (this is annoying - reference only)
-        "let g:anyfold_activate=1
 
         " fold only python c cpp java
-        autocmd FileType python,c,cpp,java let b:anyfold_activate=1
+        autocmd FileType python,c,cpp,java AnyFoldActivate
         "
         " zf#j		creates a fold from the cursor down # lines.
         " zf/string	creates a fold from the cursor to string .

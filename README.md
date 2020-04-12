@@ -5,6 +5,10 @@ Installer script for vim plugins.   Please read.
 
 Note: Rust language will be installed
 
+### Script Compatability
+* Ubuntuy 19
+* Ubuntuy 16
+
 
 ```
 # Start Script
@@ -26,6 +30,9 @@ vim +PluginInstall +qall
 ###########
 # WARNING #
 ###########
+
+# fonts for Airline Status
+sudo apt-get install fonts-powerline -y
 
 # MarkDown Composer viewer plugin setup
 
