@@ -42,7 +42,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs  > rust_installer.sh
 sh ./rust_installer.sh -y
 
 # compile the MarkDown viewer
-cd ~/.vim/undle/vim-markdown-composer
+cd ~/.vim/bundle/vim-markdown-composer
 cargo build --release --no-default-features --features json-rpc
 
 # End Script
