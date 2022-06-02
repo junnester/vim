@@ -20,6 +20,9 @@
     " easy access
     let mapleader = ","
 
+    " gvim gui font
+    set guifont=Monospace\ 14
+
     " syntax colors
     colorscheme Tomorrow-Night-Eighties "dark gray bg
     "enable mouse... a small kitten will die when everytime the mouse is used
@@ -58,12 +61,16 @@
     " stay 10 lines from the ends
     set scrolloff=10
 
-    " VimDiff
+    " VimDiff ugly and readability fixes
     if &diff
         " Ignore whitespace
         "set diffopt+=iwhite  " ignore white space
         " Always use vertical diffs
         set diffopt+=vertical
+        " diff colors
+        colorscheme monokai  "a pretty good coloring diff
+        " turn off syntax highlighting because ugly
+        syntax off
     endif
 
     " Copy Paste with ctrl+c and ctrl+v {
@@ -79,9 +86,9 @@
         " skip named paste buffers.
         set clipboard=unnamed
     " }
-	" search visual highlighted selected {
-	    vnoremap // y/<C-R>"<CR>
-	" }
+    " search visual highlighted selected {
+        vnoremap // y/<C-R>"<CR>
+    " }
     " centeredSearching{
         """
         " n, *, # will be centered
@@ -135,18 +142,59 @@
         "   softtabstop: tabs == number of spaces while editing
         "                        backspace will tread 4 spaces as 1 tab
         "   shiftwidth: number of space to move when hitting tab-key
-        set tabstop=4 softtabstop=4 shiftwidth=4
+    " default tab settings
+        set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+
+        function! Tab_stop4_noexpand()
+            "spaces to tabs
+            set tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab | retab! 4
+        endfunction
+
+        function! Tab_stop4_expand()
+            "tabs to spaces
+            set tabstop=4 softtabstop=4 shiftwidth=4 expandtab | retab! 4
+        endfunction
+
+        if &filetype =~ 'python\|c\|c++\|java\|shell\|ruby\|javascript\|perl'
+            autocmd! bufreadpost * call Tab_stop4_noexpand()
+        endif
+
+        function! Tab_stop2_noexpand()
+            "spaces to tabs
+            " exit if code type
+            if &filetype =~ 'python\|c\|c++\|java\|shell\|ruby\|javascript\|perl'
+                return
+            endif
+            set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab | retab! 2
+        endfunction
+
+        function! Tab_stop2_expand()
+            "tabs to spaces
+            " exit if code type
+            if &filetype =~ 'python\|c\|c++\|java\|shell\|ruby\|javascript\|perl'
+                return
+            endif
+            set tabstop=2 softtabstop=2 shiftwidth=2 expandtab | retab! 2
+        endfunction
 
         " this replaces invisible chars
         "   display indentation guides.. looks like  |   |    |
         set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:␣,eol:¬
         " convert spaces to tabs when reading file
         " code only this will cause errors when reading readonly files
-        autocmd! bufreadpost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4
-        " convert tabs to spaces before writing file
-        autocmd! bufwritepre *.py,*.c,*.cpp,*.java,*.conf set expandtab | retab! 4
+        autocmd! bufreadpost  *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
+        " convert tabs to spaces before writing file (save spaces only)
+        autocmd! bufwritepre  *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_expand()
         " convert spaces to tabs after writing file (to show guides again)
-        autocmd! bufwritepost *.py,*.c,*.cpp,*.java,*.conf set noexpandtab | retab! 4
+        autocmd! bufwritepost *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
+        " for SLS and Jinja files -----------------------------------------
+        "   set ts=2 sts=2 sw=2  "TabStop SoftTabStop ShiftWidth
+        " tab to space on read this should not be needed
+        autocmd! bufreadpost  grains,*.jinja,*.sls call Tab_stop2_noexpand()
+        " convert tabs to spaces before writing file (save spaces only)
+        autocmd! bufwritepre  grains,*.jinja,*.sls call Tab_stop2_expand()
+        " convert spaces to tabs after writing file (to show guides again)
+        autocmd! bufwritepost grains,*.jinja,*.sls call Tab_stop2_noexpand()
         "
     " }
 " }
@@ -158,17 +206,6 @@
 
 " Functions {
     " put functions here
-
-    " function to remove trailing white space
-    function! StripTrailingWhitespace()
-        if !&binary && &filetype != 'diff'
-            normal mz
-            normal Hmy
-            %s/\s\+$//e
-            normal 'yz<CR>
-            normal `z
-        endif
-    endfunction
 
     " Swaps windows
     "     https://stackoverflow.com/questions/2586984/how-can-i-swap-positions-of-two-open-files-in-splits-in-vim
@@ -204,8 +241,11 @@
 " mapping {
     " force close no save
     nnoremap <leader>q :qa!<CR>
-    " remove white space at end of lines
+    " remove trailing white space at end of lines
     nnoremap <leader>sp :%s/\s\+$//e<CR>
+    " remove trailing white space with button
+	nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
 
     " Bind nohl
     " Removes highlight of your last search
@@ -225,6 +265,9 @@
 
     " set conf file to logstash syntax
     nnoremap <leader>l :set syn=logstash<cr>
+
+    " set yaml syntax
+    nnoremap <leader>y :set syn=yaml<cr>
 
     " VISUAL sort
     " map sort function to 's' key
@@ -261,10 +304,13 @@
     " Set PowerShell syntax for ps1 files
     augroup powershell
         au!
-        autocmd BufNewFile,BufRead *.ps1 set syntax=ps1
+        autocmd BufNewFile,BufRead *.ps1,*.ps1.jinja set syntax=ps1
         autocmd BufNewFile,BufRead *.psd1 set syntax=ps1
         autocmd BufNewFile,BufRead *.psm1 set syntax=ps1
     augroup END
+
+    " jinja syntax
+    autocmd BufNewFile,BufRead *.py.jinja set syntax=python
 "}
 
 
@@ -346,10 +392,10 @@
         Plugin 'python-rope/rope'
         " Python ropevim for refactoring - needs rope
         Plugin 'python-rope/ropevim'
-		" vim-yaml linter
-		Plugin 'avakhov/vim-yaml'
+        " vim-yaml linter
+        Plugin 'avakhov/vim-yaml'
         "
-		"
+        "
         "==== Project Structure stuff ===========================
         " Project - for managing projects
         "    see help project
@@ -454,27 +500,27 @@
     " }
 
     " anyFold {
-		" folding plugin
+        " folding plugin
         " active for all filetypes, old on indent   see :h anyfold
 
         " fold only python c cpp java
         autocmd FileType python,c,cpp,java AnyFoldActivate
         "
-        " zf#j		creates a fold from the cursor down # lines.
-        " zf/string	creates a fold from the cursor to string .
-        " zj		moves the cursor to the next fold.
-        " zk 		moves the cursor to the previous fold.
-        " zo 		opens a fold at the cursor.
-        " zO 		opens all folds at the cursor.
-        " zc 		close a fold at the cursor.
-        " zm 		increases the foldlevel by one.
-        " zM 		closes all open folds.
-        " zr 		decreases the foldlevel by one.
-        " zR 		decreases the foldlevel to zero -- all folds will be open.
-        " zd 		deletes the fold at the cursor.
-        " zE 		deletes all folds.
-        " [z 		move to start of open fold.
-        " ]z 		move to end of open fold.
+        " zf#j      creates a fold from the cursor down # lines.
+        " zf/string creates a fold from the cursor to string .
+        " zj        moves the cursor to the next fold.
+        " zk        moves the cursor to the previous fold.
+        " zo        opens a fold at the cursor.
+        " zO        opens all folds at the cursor.
+        " zc        close a fold at the cursor.
+        " zm        increases the foldlevel by one.
+        " zM        closes all open folds.
+        " zr        decreases the foldlevel by one.
+        " zR        decreases the foldlevel to zero -- all folds will be open.
+        " zd        deletes the fold at the cursor.
+        " zE        deletes all folds.
+        " [z        move to start of open fold.
+        " ]z        move to end of open fold.
         "
     " }
 
@@ -671,16 +717,16 @@
 
 " NOTES {
     " split window { -------------------------------------------------------------
-	"
-	"   Basic split window commaands
-	"     ctrl+W +/-: increase/decrease height (ex. 20<C-w>+)
-	"     ctrl+W >/<: increase/decrease width (ex. 30<C-w><)
-	"     ctrl+W _: set height (ex. 50<C-w>_)
-	"     ctrl+W |: set width (ex. 50<C-w>|)
-	"     ctrl+W =: equalize width and height of all windows
-	"     See also: :help CTRL-W
-	"
-	"   Rotating windows
+    "
+    "   Basic split window commaands
+    "     ctrl+W +/-: increase/decrease height (ex. 20<C-w>+)
+    "     ctrl+W >/<: increase/decrease width (ex. 30<C-w><)
+    "     ctrl+W _: set height (ex. 50<C-w>_)
+    "     ctrl+W |: set width (ex. 50<C-w>|)
+    "     ctrl+W =: equalize width and height of all windows
+    "     See also: :help CTRL-W
+    "
+    "   Rotating windows
     "     To change two vertically split windows to horizonally split
     "        ctrl-w t ctrl-w K
     "
