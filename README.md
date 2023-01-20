@@ -6,9 +6,7 @@ Installer script for vim plugins.   Please read.
 Note: Rust language will be installed
 
 ### Script Compatability
-* Ubuntuy 19
-* Ubuntuy 16
-
+* Ubuntu 18,19,20,22
 
 ```
 # Start Script
@@ -46,4 +44,19 @@ cd ~/.vim/bundle/vim-markdown-composer
 cargo build --release --no-default-features --features json-rpc
 
 # End Script
+```
+
+CentOS 7
+--------
+
+### Install Powerline Fonts
+run as root
+``` bash
+git clone https://github.com/powerline/fonts.git --depth=1
+
+and install them
+cd fonts ./install.sh
+
+To make it available to every user copy it
+mkdir /usr/share/fonts cp /root/.local/share/fonts/* /usr/share/fonts
 ```
