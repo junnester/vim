@@ -1,5 +1,5 @@
 VIM config
-============
+==========
 
 ### Description
 
@@ -61,6 +61,10 @@ and install them
 cd fonts ./install.sh
 
 To make it available to every user copy it
+<<<<<<< HEAD
+mkdir /usr/share/fonts
+cp ~/.local/share/fonts/* /usr/share/fonts
+=======
 mkdir /usr/share/fonts
 cp ~/.local/share/fonts/* /usr/share/fonts
 ```
@@ -69,4 +73,3 @@ cp ~/.local/share/fonts/* /usr/share/fonts
 ```bash
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-
