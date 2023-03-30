@@ -1,4 +1,6 @@
-# VIM config repo
+VIM config 
+============
+
 ### Description
 
 Installer script for vim plugins.   Please read.
@@ -8,10 +10,11 @@ Note: Rust language will be installed
 ### Script Compatability
 * Ubuntu 18,19,20,22
 
-```
+```bash
 # Start Script
 
 # clone
+
 git clone https://github.com/junnester/vim.git   ~/.vim
 
 # linking
@@ -35,9 +38,9 @@ sudo apt-get install fonts-powerline -y
 # MarkDown Composer viewer plugin setup
 
 # Install Rust language
-cd /tmp
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs  > rust_installer.sh
-sh ./rust_installer.sh -y
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 
 # compile the MarkDown viewer
 cd ~/.vim/bundle/vim-markdown-composer
@@ -58,5 +61,11 @@ and install them
 cd fonts ./install.sh
 
 To make it available to every user copy it
-mkdir /usr/share/fonts cp /root/.local/share/fonts/* /usr/share/fonts
+mkdir /usr/share/fonts 
+cp ~/.local/share/fonts/* /usr/share/fonts
+```
+
+### Rust install
+```bash
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
