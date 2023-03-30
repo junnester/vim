@@ -53,18 +53,17 @@ CentOS 7
 --------
 
 ### Install Powerline Fonts
+
 run as root
+
 ``` bash
 git clone https://github.com/powerline/fonts.git --depth=1
 
-and install them
-cd fonts ./install.sh
+# install them
+cd fonts
+./install.sh
 
-To make it available to every user copy it
-<<<<<<< HEAD
-mkdir /usr/share/fonts
-cp ~/.local/share/fonts/* /usr/share/fonts
-=======
+#To make it available to every user copy it
 mkdir /usr/share/fonts
 cp ~/.local/share/fonts/* /usr/share/fonts
 ```
