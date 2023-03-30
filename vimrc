@@ -21,7 +21,7 @@
     let mapleader = ","
 
     " gvim gui font
-    set guifont=Monospace\ 14
+    set guifont=Monospace\ 11
 
     " syntax colors
     colorscheme Tomorrow-Night-Eighties "dark gray bg
@@ -34,7 +34,11 @@
     "   update will only save changed files
     autocmd FocusLost * silent! update
     " Remove trailing whitespace on save 'w:'
-    autocmd BufWritePre .vimrc,*.py,*.jinja,*.java,*.c,*.cpp %s/\s\+$//e
+    "autocmd BufWritePre *.vimrc,*.py,*.jinja,*.java,*.c,*.cpp,*.sls :%s/\s\+$//e
+	" kill trailing whitespaces automatically for all files
+	autocmd BufWritePre * :%s/\s\+$//e
+	"   highlight trailing whitespace
+	match ErrorMsg '\s\+$'
     autocmd VimResized * exe "normal! \<c-w>="
     syntax on
     " search highlight
@@ -59,7 +63,7 @@
     filetype plugin indent on
 
     " stay 10 lines from the ends
-    set scrolloff=10
+    set scrolloff=4
 
     " VimDiff ugly and readability fixes
     if &diff
@@ -78,6 +82,10 @@
         vmap <C-x> "+c
         vmap <C-v> c<ESC>"+p
         imap <C-v> <C-r><C-o>+
+    " }
+
+    " toggle numbers and set list {
+        noremap <F4> :set number! <bar> set relativenumber! <bar> set list! <CR>
     " }
 
     " fixCopyAndPaste {
@@ -182,19 +190,19 @@
         set list listchars=tab:❘\ ,trail:·,extends:»,precedes:«,nbsp:␣,eol:¬
         " convert spaces to tabs when reading file
         " code only this will cause errors when reading readonly files
-        autocmd! bufreadpost  *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
+        autocmd! bufreadpost  *py.jinja,*.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
         " convert tabs to spaces before writing file (save spaces only)
-        autocmd! bufwritepre  *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_expand()
+        autocmd! bufwritepre  *py.jinja,*.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_expand()
         " convert spaces to tabs after writing file (to show guides again)
-        autocmd! bufwritepost *.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
+        autocmd! bufwritepost *py.jinja,*.py,*.c,*.cpp,*.java,*.conf call Tab_stop4_noexpand()
         " for SLS and Jinja files -----------------------------------------
         "   set ts=2 sts=2 sw=2  "TabStop SoftTabStop ShiftWidth
         " tab to space on read this should not be needed
-        autocmd! bufreadpost  grains,*.jinja,*.sls call Tab_stop2_noexpand()
+        autocmd! bufreadpost  grains,*(?!.*(py)).jinja,*.sls call Tab_stop2_noexpand()
         " convert tabs to spaces before writing file (save spaces only)
-        autocmd! bufwritepre  grains,*.jinja,*.sls call Tab_stop2_expand()
+        autocmd! bufwritepre  grains,*(?!.*(py)).jinja,*.sls call Tab_stop2_expand()
         " convert spaces to tabs after writing file (to show guides again)
-        autocmd! bufwritepost grains,*.jinja,*.sls call Tab_stop2_noexpand()
+        autocmd! bufwritepost grains,*(?!.*(py)).jinja,*.sls call Tab_stop2_noexpand()
         "
     " }
 " }
@@ -311,6 +319,10 @@
 
     " jinja syntax
     autocmd BufNewFile,BufRead *.py.jinja set syntax=python
+    autocmd BufNewFile,BufRead *.tf.jinja set syntax=terraform
+
+	" terraform
+    autocmd BufNewFile,BufRead *.tf set syntax=terraform
 "}
 
 
@@ -395,6 +407,8 @@
         " vim-yaml linter
         Plugin 'avakhov/vim-yaml'
         "
+		" Terraform for vim
+		Plugin 'hashivim/vim-terraform'
         "
         "==== Project Structure stuff ===========================
         " Project - for managing projects
